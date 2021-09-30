@@ -50,4 +50,13 @@ public class TestAlphaTracker {
         tracker.addCharacter("Test", CharacterType.ALLY,20);
         assertThat(tracker.getCharacterInTurn().getInitiative(), is(20));
     }
+
+    @Test
+    public void shouldBeAbleToAdd2CharactersToTracker() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 10);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+    }
 }

@@ -8,6 +8,9 @@ package framework;
  * A characters dying condition is normally 0-3 and if it goes above that threshold, the
  * character is dead. Characters with the Die Hard feat can go up to a dying condition of 4
  * without being dead.
+ *
+ * A character is responsible for knowing it's own values and changing them, but not knowing when to change
+ * or to what
  */
 public interface Charact {
 
