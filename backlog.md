@@ -1,5 +1,6 @@
 # Backlog
 ## Requirements
+ - A character has a name, initiative and type
  - Can add multiple characters to tracker
  - Can get character in turn
  - Can remove character from tracker

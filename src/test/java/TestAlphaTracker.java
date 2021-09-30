@@ -26,4 +26,16 @@ public class TestAlphaTracker {
         tracker.addCharacter("Test", CharacterType.ENEMY, 10);
         assertThat(tracker.getCharacterInTurn().getType(), is(CharacterType.ENEMY));
     }
+
+    @Test
+    public void characterHasCorrectTestName() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 10);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test"));
+    }
+
+    @Test
+    public void characterHasCorrectTest2Name() {
+        tracker.addCharacter("Test2", CharacterType.ALLY, 10);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+    }
 }

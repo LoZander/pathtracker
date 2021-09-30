@@ -4,9 +4,11 @@ import framework.Charact;
 import framework.CharacterType;
 
 public class CharactImpl implements Charact {
+    private final String name;
     private CharacterType type;
 
-    public CharactImpl(CharacterType type) {
+    public CharactImpl(String name, CharacterType type) {
+        this.name = name;
         this.type = type;
     }
 
@@ -17,7 +19,7 @@ public class CharactImpl implements Charact {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
