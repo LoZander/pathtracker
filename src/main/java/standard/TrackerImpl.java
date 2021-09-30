@@ -55,7 +55,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public void setDyingCondOfCharacter(String name) {
+    public void setDyingCondOfCharacter(String name, int dyingDegree) {
 
     }
 

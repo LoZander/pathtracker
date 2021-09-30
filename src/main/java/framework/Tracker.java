@@ -63,8 +63,9 @@ public interface Tracker {
      * "inactive" in the form of wounded conditions, the current wounded conditions are
      * are stacked on top of the new dying condition when the character goes down to 0 HP.
      * @param name Name of character.
+     * @param dyingDegree The degree of the dying condition.
      */
-    void setDyingCondOfCharacter(String name);
+    void setDyingCondOfCharacter(String name, int dyingDegree);
 
     /**
      * Returns the round number of the tracker. This number is increased
