@@ -21,12 +21,13 @@ public class TrackerImpl implements Tracker {
     @Override
     public void addCharacter(String name, CharacterType characterType, int initiative) {
         characterList.add(new CharactImpl(name, characterType, initiative));
-
         sort();
     }
 
     private void sort() {
-        characterList.sort(Comparator.comparing(Charact::getInitiative, (a,b) -> b - a));
+        characterList.sort(Comparator.comparing(Charact::getInitiative, (a,b) -> b - a)
+                .thenComparing(Charact::getType)
+                .thenComparing(Charact::getName));
     }
 
     @Override

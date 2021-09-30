@@ -88,12 +88,41 @@ public class TestAlphaTracker {
     public void charactersAreSortedByInitiative() {
         tracker.addCharacter("Test1", CharacterType.ALLY, 10);
         tracker.addCharacter("Test2", CharacterType.ALLY, 15);
-        tracker.addCharacter("Test2", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 20);
 
         assertThat(tracker.getCharacterInTurn().getInitiative(), is(20));
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getInitiative(), is(15));
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getInitiative(), is(10));
+    }
+
+    @Test
+    public void charactersAreSortedByTypeSecondly() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 10);
+        tracker.addCharacter("Test2", CharacterType.ENEMY, 15);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 15);
+
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test3"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+    }
+
+    @Test
+    public void charactersAreSortedByNameThirdlyAtoZ() {
+        tracker.addCharacter("D", CharacterType.ENEMY, 15);     // fourth
+        tracker.addCharacter("C", CharacterType.ENEMY, 15);     // third
+        tracker.addCharacter("B", CharacterType.ALLY, 15);      // second
+        tracker.addCharacter("A", CharacterType.ALLY, 20);      // first
+
+        assertThat(tracker.getCharacterInTurn().getName(), is("A"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("B"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("C"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("D"));
     }
 }
