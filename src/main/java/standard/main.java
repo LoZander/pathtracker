@@ -9,18 +9,17 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) throws InterruptedException, IOException {
         switch (args[0]) {
-            case "-console": consoleVariant(args[1]);
+            case "-console": consoleVariant();
         }
     }
 
-    private static void consoleVariant(String arg) throws IOException, InterruptedException {
+    private static void consoleVariant() throws IOException, InterruptedException {
         Tracker tracker = new TrackerImpl();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean run = true;
+        while (run) {
             String command = scanner.nextLine();
-            if(arg.equals("-clear")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            }
+            //new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 
             String[] com = command.split(" ");
             switch (com[0]) {
@@ -33,6 +32,8 @@ public class main {
                 case "n":
                     tracker.nextTurn();
                     break;
+                case "exit":
+                    run = false;
             }
             printTracker(tracker);
         }
