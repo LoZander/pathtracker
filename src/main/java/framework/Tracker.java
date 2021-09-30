@@ -1,5 +1,7 @@
 package framework;
 
+import java.util.List;
+
 /**
  * The tracker is the main interface of the framework. It acts as a coordinator or a hub if
  * you will. Most associations should be through the tracker.
@@ -40,6 +42,12 @@ public interface Tracker {
      * @return Character of the name, or null if the tracker has no character by the name.
      */
     Charact getCharacter(String name);
+
+    /**
+     * Returns a list of characters in the tracker.
+     * @return The list of characters.
+     */
+    List<Charact> getCharacters();
 
     /**
      * Sets the dying condition of the character. This can normally be a value of 0-3.

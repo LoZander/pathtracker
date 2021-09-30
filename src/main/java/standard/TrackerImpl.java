@@ -50,6 +50,11 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
+    public List<Charact> getCharacters() {
+        return new LinkedList<>(characterList);
+    }
+
+    @Override
     public void setDyingCondOfCharacter(String name) {
 
     }
