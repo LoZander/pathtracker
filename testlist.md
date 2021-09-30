@@ -18,3 +18,5 @@
 - getPlayerInTurn returns null if there are no players in the tracker
 - Adding a player with a higher initiative,
   should not change the player in turn.
+- The next turn is the character with the highest initiative
+  when no character is the character in turn.

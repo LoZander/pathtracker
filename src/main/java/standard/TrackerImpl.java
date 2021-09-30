@@ -17,10 +17,13 @@ public class TrackerImpl implements Tracker {
         if(characterInTurn == null) {
             characterInTurn = characterList.get(0);
         } else {
-            int index = characterList.indexOf(characterInTurn);
-            int nextIndex = (index + 1) % characterList.size();
-            characterInTurn = characterList.get(nextIndex);
+            characterInTurn = characterList.get(getNextIndex());
         }
+    }
+
+    private int getNextIndex() {
+        int index = characterList.indexOf(characterInTurn);
+        return (index + 1) % characterList.size();
     }
 
     @Override
@@ -30,7 +33,8 @@ public class TrackerImpl implements Tracker {
     }
 
     private void sort() {
-        characterList.sort(Comparator.comparing(Charact::getInitiative, (a,b) -> b - a)
+        characterList.sort(Comparator
+                .comparing(Charact::getInitiative, (a,b) -> b - a)
                 .thenComparing(Charact::getType)
                 .thenComparing(Charact::getName));
     }
@@ -38,7 +42,8 @@ public class TrackerImpl implements Tracker {
     @Override
     public void removeCharacter(String name) {
         Charact character = getCharacter(name);
-        if(character.equals(characterInTurn)) nextTurn();
+        boolean isCharacterInTurn = character.equals(characterInTurn);
+        if(isCharacterInTurn) nextTurn();
         characterList.remove(character);
     }
 
