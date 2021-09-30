@@ -14,3 +14,4 @@
 - Characters can be removed from the tracker
 - getCharacter returns a character by the given name
 - getCharacter returns null if there is no character by the given name
+- getPlayerInTurn returns null if there are no players in the tracker

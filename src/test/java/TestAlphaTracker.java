@@ -1,12 +1,12 @@
 import framework.CharacterType;
 import framework.Tracker;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import standard.TrackerImpl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 public class TestAlphaTracker {
     private Tracker tracker;
@@ -146,5 +146,10 @@ public class TestAlphaTracker {
     @Test
     public void getCharacterByNameReturnsNullIfNoCharacterByTheName() {
         assertThat(tracker.getCharacter("Test"), is(nullValue()));
+    }
+
+    @Test
+    public void getPlayerInTurnGivesNullIfThereAreNoPlayers() {
+        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
     }
 }

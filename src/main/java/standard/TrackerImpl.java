@@ -37,7 +37,11 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public Charact getCharacterInTurn() {
-        return characterList.get(turn);
+        try {
+            return characterList.get(turn);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     @Override
