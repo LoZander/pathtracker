@@ -13,7 +13,8 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public void nextTurn() {
-        turn++;
+        boolean isLastCharacter = turn >= characterList.size() - 1;
+        if(isLastCharacter) turn = 0; else turn++;
     }
 
     @Override

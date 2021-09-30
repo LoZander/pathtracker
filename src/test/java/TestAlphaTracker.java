@@ -59,4 +59,28 @@ public class TestAlphaTracker {
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
     }
+
+    @Test
+    public void shouldNextTurnChangeToNextCharacter() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 10);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 5);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test3"));
+    }
+
+    @Test
+    public void shouldBeFirstCharacterInTrackerAfterLastCharacter() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 10);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 5);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+        tracker.nextTurn();
+        tracker.nextTurn();
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+    }
 }
