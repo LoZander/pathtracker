@@ -6,15 +6,17 @@ import framework.CharacterType;
 public class CharactImpl implements Charact {
     private final String name;
     private CharacterType type;
+    private int initiative;
 
-    public CharactImpl(String name, CharacterType type) {
+    public CharactImpl(String name, CharacterType type, int initiative) {
         this.name = name;
         this.type = type;
+        this.initiative = initiative;
     }
 
     @Override
-    public double getInitiative() {
-        return 0;
+    public int getInitiative() {
+        return initiative;
     }
 
     @Override

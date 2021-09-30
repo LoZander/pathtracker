@@ -15,7 +15,7 @@ public interface Charact {
      * Returns the initiative of the character.
      * @return The initiative of the character.
      */
-    double getInitiative();
+    int getInitiative();
 
     /**
      * Returns the name of the character.

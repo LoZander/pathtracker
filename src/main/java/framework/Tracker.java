@@ -19,7 +19,7 @@ public interface Tracker {
      * @param characterType Type of the character.
      * @param initiative Initiative of the character.
      */
-    void addCharacter(String name, CharacterType characterType, double initiative);
+    void addCharacter(String name, CharacterType characterType, int initiative);
 
     /**
      * Removes a character from the tracker.

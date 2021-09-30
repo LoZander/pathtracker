@@ -13,8 +13,8 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public void addCharacter(String name, CharacterType characterType, double initiative) {
-        character = new CharactImpl(name, characterType);
+    public void addCharacter(String name, CharacterType characterType, int initiative) {
+        character = new CharactImpl(name, characterType, initiative);
     }
 
     @Override

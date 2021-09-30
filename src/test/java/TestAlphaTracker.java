@@ -38,4 +38,16 @@ public class TestAlphaTracker {
         tracker.addCharacter("Test2", CharacterType.ALLY, 10);
         assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
     }
+
+    @Test
+    public void characterWithInitiative10HasInitiative10() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 10);
+        assertThat(tracker.getCharacterInTurn().getInitiative(), is(10));
+    }
+
+    @Test
+    public void characterWithInitiative20HasInitiative20() {
+        tracker.addCharacter("Test", CharacterType.ALLY,20);
+        assertThat(tracker.getCharacterInTurn().getInitiative(), is(20));
+    }
 }
