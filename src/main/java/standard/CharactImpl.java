@@ -5,8 +5,8 @@ import framework.CharacterType;
 
 public class CharactImpl implements Charact {
     private final String name;
-    private CharacterType type;
-    private int initiative;
+    private final CharacterType type;
+    private final int initiative;
 
     public CharactImpl(String name, CharacterType type, int initiative) {
         this.name = name;
@@ -32,5 +32,13 @@ public class CharactImpl implements Charact {
     @Override
     public int getDyingCondition() {
         return 0;
+    }
+
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (this == other) return true;
+        if (!(other instanceof CharactImpl)) return false;
+        CharactImpl o = (CharactImpl) other;
+        return this.getName().equals(o.getName());
     }
 }

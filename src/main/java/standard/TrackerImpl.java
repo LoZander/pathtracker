@@ -31,13 +31,18 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public void removeCharacter(double initiative) {
-
+    public void removeCharacter(String name) {
+        characterList.removeIf(e -> e.getName().equals(name));
     }
 
     @Override
     public Charact getCharacterInTurn() {
         return characterList.get(turn);
+    }
+
+    @Override
+    public Charact getCharacter(String name) {
+        return null;
     }
 
     @Override

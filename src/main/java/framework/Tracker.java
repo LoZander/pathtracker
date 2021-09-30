@@ -23,15 +23,23 @@ public interface Tracker {
 
     /**
      * Removes a character from the tracker.
-     * @param initiative Initiative to select the character by.
+     * @param name Name of the character to be selected.
+     *
      */
-    void removeCharacter(double initiative);
+    void removeCharacter(String name);
 
     /**
      * Returns the character who's turn it is.
      * @return The character who's turn it is.
      */
     Charact getCharacterInTurn();
+
+    /**
+     * Return character of a specific name.
+     * @param name Name of the character.
+     * @return Character of the name.
+     */
+    Charact getCharacter(String name);
 
     /**
      * Sets the dying condition of the character. This can normally be a value of 0-3.

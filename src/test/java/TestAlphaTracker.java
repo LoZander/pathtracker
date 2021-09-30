@@ -6,6 +6,7 @@ import standard.TrackerImpl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 public class TestAlphaTracker {
     private Tracker tracker;
@@ -124,5 +125,15 @@ public class TestAlphaTracker {
         assertThat(tracker.getCharacterInTurn().getName(), is("C"));
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("D"));
+    }
+
+    @Test
+    public void charactersCanBeRemoved() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 20);
+        tracker.removeCharacter("Test1");
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
     }
 }

@@ -10,7 +10,9 @@ package framework;
  * without being dead.
  *
  * A character is responsible for knowing it's own values and changing them, but not knowing when to change
- * or to what
+ * or to what.
+ *
+ * A character is unique by it's name.
  */
 public interface Charact {
 

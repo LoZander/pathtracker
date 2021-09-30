@@ -11,3 +11,4 @@
 - Characters are sorted by initiative
 - Characters are secondly sorted by type (ally then enemy)
 - Characters are thirdly sorted by name (A-Z)
+- Characters can be removed from the tracker
