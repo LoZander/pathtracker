@@ -19,7 +19,7 @@ public interface Tracker {
      * @param characterType Type of the character.
      * @param initiative Initiative of the character.
      */
-    void addCharacter(String name, String characterType, double initiative);
+    void addCharacter(String name, CharacterType characterType, double initiative);
 
     /**
      * Removes a character from the tracker.
@@ -31,9 +31,8 @@ public interface Tracker {
      * Returns a character of the tracker.
      * @param initiative Initiative to select the character by.
      * @return The character selected by the initiative.
-     * @throws Exception When trying trying to get a character by an initiative not tied to a character.
      */
-    Charact getCharacter(double initiative) throws Exception;
+    Charact getCharacter(double initiative);
 
     /**
      * Sets the dying condition of the character. This can normally be a value of 0-3.
