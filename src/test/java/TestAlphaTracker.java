@@ -152,4 +152,13 @@ public class TestAlphaTracker {
     public void getPlayerInTurnGivesNullIfThereAreNoPlayers() {
         assertThat(tracker.getCharacterInTurn(), is(nullValue()));
     }
+
+    @Test
+    public void shouldBeNextPlayerIfPlayerInTurnIsRemoved() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 15);
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+        tracker.removeCharacter("Test1");
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
+    }
 }
