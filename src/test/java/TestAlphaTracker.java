@@ -83,4 +83,17 @@ public class TestAlphaTracker {
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
     }
+
+    @Test
+    public void charactersAreSortedByInitiative() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 10);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 15);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 20);
+
+        assertThat(tracker.getCharacterInTurn().getInitiative(), is(20));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getInitiative(), is(15));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getInitiative(), is(10));
+    }
 }
