@@ -23,7 +23,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public Charact getCharacter(double initiative) {
+    public Charact getCharacterInTurn() {
         return character;
     }
 

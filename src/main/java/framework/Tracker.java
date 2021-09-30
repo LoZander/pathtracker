@@ -28,11 +28,10 @@ public interface Tracker {
     void removeCharacter(double initiative);
 
     /**
-     * Returns a character of the tracker.
-     * @param initiative Initiative to select the character by.
-     * @return The character selected by the initiative.
+     * Returns the character who's turn it is.
+     * @return The character who's turn it is.
      */
-    Charact getCharacter(double initiative);
+    Charact getCharacterInTurn();
 
     /**
      * Sets the dying condition of the character. This can normally be a value of 0-3.

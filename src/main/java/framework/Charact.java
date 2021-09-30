@@ -13,7 +13,6 @@ public interface Charact {
 
     /**
      * Returns the initiative of the character.
-     * This is a unique value in the tracker.
      * @return The initiative of the character.
      */
     double getInitiative();

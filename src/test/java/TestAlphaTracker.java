@@ -18,12 +18,12 @@ public class TestAlphaTracker {
     @Test
     public void shouldAddedAllyCharacterToTrackerHaveCorrectType() {
         tracker.addCharacter("Test", CharacterType.ALLY, 10);
-        assertThat(tracker.getCharacter(10).getType(), is(CharacterType.ALLY));
+        assertThat(tracker.getCharacterInTurn().getType(), is(CharacterType.ALLY));
     }
 
     @Test
-    public void shouldAddedEnemyCharacterTOTrackerHaveCorrectType() {
+    public void shouldAddedEnemyCharacterToTrackerHaveCorrectType() {
         tracker.addCharacter("Test", CharacterType.ENEMY, 10);
-        assertThat(tracker.getCharacter(10).getType(), is(CharacterType.ENEMY));
+        assertThat(tracker.getCharacterInTurn().getType(), is(CharacterType.ENEMY));
     }
 }
