@@ -12,3 +12,5 @@
 - Characters are secondly sorted by type (ally then enemy)
 - Characters are thirdly sorted by name (A-Z)
 - Characters can be removed from the tracker
+- getCharacter returns a character by the given name
+- getCharacter returns null if there is no character by the given name

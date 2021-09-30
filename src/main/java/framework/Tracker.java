@@ -37,7 +37,7 @@ public interface Tracker {
     /**
      * Return character of a specific name.
      * @param name Name of the character.
-     * @return Character of the name.
+     * @return Character of the name, or null if the tracker has no character by the name.
      */
     Charact getCharacter(String name);
 
@@ -54,9 +54,9 @@ public interface Tracker {
      * The dying conditions don't reset when the characters get up, but become
      * "inactive" in the form of wounded conditions, the current wounded conditions are
      * are stacked on top of the new dying condition when the character goes down to 0 HP.
-     * @param initiative Initiative to select the character by.
+     * @param name Name of character.
      */
-    void setDyingCondOfCharacter(double initiative);
+    void setDyingCondOfCharacter(String name);
 
     /**
      * Returns the round number of the tracker. This number is increased

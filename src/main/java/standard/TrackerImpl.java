@@ -42,11 +42,11 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public Charact getCharacter(String name) {
-        return null;
+        return characterList.stream().filter(e -> e.getName().equals(name)).findFirst().orElse(null);
     }
 
     @Override
-    public void setDyingCondOfCharacter(double initiative) {
+    public void setDyingCondOfCharacter(String name) {
 
     }
 

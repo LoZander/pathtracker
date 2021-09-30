@@ -136,4 +136,15 @@ public class TestAlphaTracker {
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test2"));
     }
+
+    @Test
+    public void canGetCharacterByName() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        assertThat(tracker.getCharacter("Test").getInitiative(), is(20));
+    }
+
+    @Test
+    public void getCharacterByNameReturnsNullIfNoCharacterByTheName() {
+        assertThat(tracker.getCharacter("Test"), is(nullValue()));
+    }
 }
