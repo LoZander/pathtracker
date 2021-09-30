@@ -60,10 +60,21 @@ public class TestAlphaTracker {
     }
 
     @Test
+    public void whenNoCharacterInTheNextTurnIsTheHighestInitiativeCharacter() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 30);
+        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
+
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn(), is(tracker.getCharacter("Test2")));
+    }
+
+    @Test
     public void shouldNextTurnChangeToNextCharacter() {
         tracker.addCharacter("Test1", CharacterType.ALLY, 20);
         tracker.addCharacter("Test2", CharacterType.ALLY, 10);
         tracker.addCharacter("Test3", CharacterType.ALLY, 5);
+
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
         tracker.nextTurn();
@@ -77,8 +88,10 @@ public class TestAlphaTracker {
         tracker.addCharacter("Test1", CharacterType.ALLY, 20);
         tracker.addCharacter("Test2", CharacterType.ALLY, 10);
         tracker.addCharacter("Test3", CharacterType.ALLY, 5);
+
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+
         tracker.nextTurn();
         tracker.nextTurn();
         tracker.nextTurn();
@@ -133,7 +146,6 @@ public class TestAlphaTracker {
     @Test
     public void charactersCanBeRemoved() {
         tracker.addCharacter("Test1", CharacterType.ALLY, 20);
-        tracker.addCharacter("Test2", CharacterType.ALLY, 20);
         tracker.removeCharacter("Test1");
         assertThat(tracker.getCharacter("Test1"), is(nullValue()));
     }
@@ -183,14 +195,5 @@ public class TestAlphaTracker {
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
         tracker.addCharacter("Test3", CharacterType.ALLY, 25);
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
-    }
-
-    @Test
-    public void whenNoCharacterInTheNextTurnIsTheHighestInitiativeCharacter() {
-        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
-        tracker.addCharacter("Test2", CharacterType.ALLY, 30);
-        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
-        tracker.nextTurn();
-        assertThat(tracker.getCharacterInTurn(), is(tracker.getCharacter("Test2")));
     }
 }

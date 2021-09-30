@@ -5,6 +5,8 @@
 - Character named "Test2" has the name "Test2"
 - Character created with initiative 10 actually has initiative 10.
 - Character created with initiative 20 actually has initiative 20.
+- The next turn is the character with the highest initiative
+  when no character is the character in turn.
 - NextTurn should change character in turn to the next character.
 - Character after last character of the tracker
   is the first character of the tracker.
@@ -18,5 +20,3 @@
 - getPlayerInTurn returns null if there are no players in the tracker
 - Adding a player with a higher initiative,
   should not change the player in turn.
-- The next turn is the character with the highest initiative
-  when no character is the character in turn.
