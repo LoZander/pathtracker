@@ -10,12 +10,17 @@ import java.util.List;
 
 public class TrackerImpl implements Tracker {
     private final List<Charact> characterList = new LinkedList<>();
-    private int turn;
+    private Charact characterInTurn;
 
     @Override
     public void nextTurn() {
-        boolean isLastCharacter = turn >= characterList.size() - 1;
-        if(isLastCharacter) turn = 0; else turn++;
+        if(characterInTurn == null) {
+            characterInTurn = characterList.get(0);
+        } else {
+            int index = characterList.indexOf(characterInTurn);
+            int nextIndex = (index + 1) % characterList.size();
+            characterInTurn = characterList.get(nextIndex);
+        }
     }
 
     @Override
@@ -32,16 +37,14 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public void removeCharacter(String name) {
-        characterList.removeIf(e -> e.getName().equals(name));
+        Charact character = getCharacter(name);
+        if(character.equals(characterInTurn)) nextTurn();
+        characterList.remove(character);
     }
 
     @Override
     public Charact getCharacterInTurn() {
-        try {
-            return characterList.get(turn);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+        return characterInTurn;
     }
 
     @Override

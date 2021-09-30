@@ -12,6 +12,9 @@
 - Characters are secondly sorted by type (ally then enemy)
 - Characters are thirdly sorted by name (A-Z)
 - Characters can be removed from the tracker
+- Removing a character should not remove anything else
 - getCharacter returns a character by the given name
 - getCharacter returns null if there is no character by the given name
 - getPlayerInTurn returns null if there are no players in the tracker
+- Adding a player with a higher initiative,
+  should not change the player in turn.
