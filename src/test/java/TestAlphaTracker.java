@@ -1,6 +1,5 @@
 import framework.CharacterType;
 import framework.Tracker;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import standard.TrackerImpl;
@@ -184,5 +183,14 @@ public class TestAlphaTracker {
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
         tracker.addCharacter("Test3", CharacterType.ALLY, 25);
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+    }
+
+    @Test
+    public void whenNoCharacterInTheNextTurnIsTheHighestInitiativeCharacter() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 30);
+        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn(), is(tracker.getCharacter("Test2")));
     }
 }
