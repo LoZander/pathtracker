@@ -4,41 +4,34 @@ import framework.CharacterType;
 import framework.InputHandler;
 import framework.Tracker;
 
-import java.util.Arrays;
-
 public class CommandLineInputHandler implements InputHandler {
     @Override
     public void execute(Tracker tracker, String command) throws NumberFormatException {
-        String[] words = command.split(" ",2);
+        String[] words = command.split(" ");
         String commandWord = words[0];
-        String variables;
         switch (commandWord) {
             case "p":
-                variables = words[1];
-                createCharacter(tracker, variables, CharacterType.ALLY);
+                createCharacter(tracker, words, CharacterType.ALLY);
                 break;
             case "b":
-                variables = words[1];
-                createCharacter(tracker, variables, CharacterType.ENEMY);
+                createCharacter(tracker, words, CharacterType.ENEMY);
                 break;
             case "d":
-                variables = words[1];
-                tracker.removeCharacter(variables);
+                tracker.removeCharacter(words[1]);
                 break;
             case "r":
                 tracker.nextTurn();
                 break;
-            default: throw new IllegalCommandException(commandWord + " isn't a valid command");
+            default: throw new IllegalCommandException(command + " isn't a valid command");
         }
     }
 
-    private void createCharacter(Tracker tracker, String variables, CharacterType type) throws IllegalArgumentException {
-        String[] words = variables.split(" ");
+    private void createCharacter(Tracker tracker, String[] variables, CharacterType type) throws IllegalArgumentException {
         String name;
         int initiative;
         try {
-            name = words[0];
-            initiative = Integer.parseInt(words[1]);
+            name = variables[1];
+            initiative = Integer.parseInt(variables[2]);
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalCommandException("Missing argument. Command must follow the syntax: [name] [initiative]");
         } catch (NumberFormatException error) {

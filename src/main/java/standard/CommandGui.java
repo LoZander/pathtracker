@@ -35,7 +35,11 @@ public class CommandGui implements Gui {
         while(run) {
             command = scanner.nextLine();
             clear();
-            input.execute(tracker,command);
+            try {
+                input.execute(tracker, command);
+            } catch (IllegalCommandException error) {
+                System.out.println(error.getMessage());
+            }
             printTracker(tracker);
         }
     }
