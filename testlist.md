@@ -37,3 +37,4 @@
 - If the first character is in turn, input "r" should change the turn to the next character
 - Invalid command word should cause an exception
 - Attempting to add a character who is already on the tracker does nothing (not added).
+- Missing command variables should cause an exception
