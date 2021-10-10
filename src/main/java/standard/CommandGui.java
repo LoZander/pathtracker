@@ -5,6 +5,7 @@ import framework.Gui;
 import framework.InputHandler;
 import framework.Tracker;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandGui implements Gui {
@@ -33,32 +34,40 @@ public class CommandGui implements Gui {
         boolean run = true;
         while(run) {
             command = scanner.nextLine();
+            clear();
             input.execute(tracker,command);
             printTracker(tracker);
         }
     }
 
     private void printTracker(Tracker tracker) {
-        System.out.println("o>--<o>-<o>-<o>--<o");
+        System.out.println("o>---<o>-<o>-<o>---<o");
         tracker.getCharacters().forEach(e -> {
 
             String lead = " - ";
+            String type = "p";
             String name = e.getName();
             String initiative = e.getInitiative() + "";
             String dying = e.getDyingCondition() + "";
-            String colour = ANSI_RESET;
+
 
             boolean isCharacterEnemy = e.getType() == CharacterType.ENEMY;
             if(isCharacterEnemy) {
-                colour = ANSI_RED;
+                type = "b";
             }
 
             boolean isCharacterInTurn = e.equals(tracker.getCharacterInTurn());
-            if (isCharacterInTurn) lead = ANSI_YELLOW + " * " + ANSI_RESET;
+            if (isCharacterInTurn) lead = " * ";
 
-            System.out.format("%s" + colour + "%-10s%2s%2s%n" + ANSI_RESET, lead, name, initiative, dying);
+            System.out.format("%-2s%-2s%-10s%2s%2s%n", lead, type, name, initiative, dying);
         });
 
-        System.out.println(">--------o--------<");
+        System.out.println(">---------o---------<");
+    }
+
+    private void clear() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (IOException | InterruptedException ignored) {}
     }
 }

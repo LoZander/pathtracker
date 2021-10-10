@@ -227,8 +227,8 @@ public class TestAlphaTracker {
 
     @Test
     public void inputPTestabcShouldThrowException() {
-        Exception thrown = assertThrows(IllegalArgumentException.class,() -> input.execute(tracker, "p Test abc"));
-        assertThat(thrown.getMessage(), is("Invalid command"));
+        Exception thrown = assertThrows(Exception.class,() -> input.execute(tracker, "p Test abc"));
+        assertThat(thrown.getMessage(), is("Initiative must be an integer"));
     }
 
     @Test
@@ -251,8 +251,8 @@ public class TestAlphaTracker {
 
     @Test
     public void inputBTestabcShouldThrowAnException() {
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> input.execute(tracker,"b Test abc"));
-        assertThat(thrown.getMessage(), is("Invalid command"));
+        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,"b Test abc"));
+        assertThat(thrown.getMessage(), is("Initiative must be an integer"));
     }
 
     @Test
@@ -289,5 +289,11 @@ public class TestAlphaTracker {
         input.execute(tracker, "r");
         input.execute(tracker, "r");
         assertThat(tracker.getCharacterInTurn().getName(), is("TestTwo"));
+    }
+
+    @Test
+    public void invalidCommandWordShouldCauseException() {
+        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,"FakeCommandWord"));
+        assertThat(thrown.getMessage(), is("FakeCommandWord isn't a valid command"));
     }
 }

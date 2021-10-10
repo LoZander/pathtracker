@@ -4,35 +4,52 @@ import framework.CharacterType;
 import framework.InputHandler;
 import framework.Tracker;
 
+import java.util.Arrays;
+
 public class CommandLineInputHandler implements InputHandler {
     @Override
     public void execute(Tracker tracker, String command) throws NumberFormatException {
-        String[] words = command.split(" ");
+        String[] words = command.split(" ",2);
         String commandWord = words[0];
+        String variables;
         switch (commandWord) {
             case "p":
-                createCharacter(tracker, words[1], CharacterType.ALLY, words[2]);
+                variables = words[1];
+                createCharacter(tracker, variables, CharacterType.ALLY);
                 break;
             case "b":
-                createCharacter(tracker, words[1], CharacterType.ENEMY, words[2]);
+                variables = words[1];
+                createCharacter(tracker, variables, CharacterType.ENEMY);
                 break;
             case "d":
-                String var1 = words[1];
-                tracker.removeCharacter(var1);
+                variables = words[1];
+                tracker.removeCharacter(variables);
                 break;
             case "r":
                 tracker.nextTurn();
                 break;
+            default: throw new IllegalCommandException(commandWord + " isn't a valid command");
         }
     }
 
-    private void createCharacter(Tracker tracker, String name, CharacterType type, String initiative) throws IllegalArgumentException {
-        int init;
+    private void createCharacter(Tracker tracker, String variables, CharacterType type) throws IllegalArgumentException {
+        String[] words = variables.split(" ");
+        String name;
+        int initiative;
         try {
-            init = Integer.parseInt(initiative);
+            name = words[0];
+            initiative = Integer.parseInt(words[1]);
+        } catch (IndexOutOfBoundsException error) {
+            throw new IllegalCommandException("Missing argument. Command must follow the syntax: [name] [initiative]");
         } catch (NumberFormatException error) {
-            throw new IllegalArgumentException("Invalid command");
+            throw new IllegalCommandException("Initiative must be an integer");
         }
-        tracker.addCharacter(name, type, init);
+
+        tracker.addCharacter(name, type, initiative);
     }
+}
+
+class IllegalCommandException extends RuntimeException {
+    public IllegalCommandException() {super();}
+    public IllegalCommandException(String s) {super(s);}
 }
