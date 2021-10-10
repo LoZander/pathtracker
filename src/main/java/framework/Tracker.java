@@ -24,7 +24,7 @@ public interface Tracker {
     void addCharacter(String name, CharacterType characterType, int initiative);
 
     /**
-     * Removes a character from the tracker.
+     * Removes a character from the tracker, if they exist.
      * @param name Name of the character to be selected.
      *
      */

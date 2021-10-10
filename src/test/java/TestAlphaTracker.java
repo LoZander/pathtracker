@@ -267,4 +267,10 @@ public class TestAlphaTracker {
         input.execute(tracker, "d Test");
         assertThat(tracker.getCharacter("Test"), is(nullValue()));
     }
+
+    @Test
+    public void inputDTestShouldDoNothingIfTheCharacterDoesntExist() {
+        input.execute(tracker, "d Test");
+        assertThat(tracker.getCharacter("Test"), is(nullValue()));
+    }
 }

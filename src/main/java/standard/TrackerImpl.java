@@ -42,8 +42,13 @@ public class TrackerImpl implements Tracker {
     @Override
     public void removeCharacter(String name) {
         Charact character = getCharacter(name);
+
+        boolean characterExists = character != null;
+        if(!characterExists) return;
+
         boolean isCharacterInTurn = character.equals(characterInTurn);
         if(isCharacterInTurn) nextTurn();
+
         characterList.remove(character);
     }
 
