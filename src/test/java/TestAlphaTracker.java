@@ -316,6 +316,14 @@ public class TestAlphaTracker {
     public void clearingTrackerShouldRemoveAllCharacters() {
         tracker.addCharacter("Test", CharacterType.ALLY, 20);
         tracker.clear();
-        assertThat(tracker.getCharacter("Test"), is(nullValue()));
+        assertThat(tracker.getCharacters().size(), is(0));
+    }
+
+    @Test
+    public void inputClearShouldRemoveAllCharacters() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        tracker.addCharacter("TestTwo", CharacterType.ALLY, 18);
+        input.execute(tracker, CLEAR);
+        assertThat(tracker.getCharacters().size(), is(0));
     }
 }

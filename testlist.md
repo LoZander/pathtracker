@@ -38,3 +38,4 @@
 - Attempting to add a character who is already on the tracker does nothing (not added).
 - Missing command variables should cause an exception
 - Clearing the tracker should remove all characters
+- Input 'clear' should clear the tracker

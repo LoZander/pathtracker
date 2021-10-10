@@ -26,6 +26,9 @@ public class CommandLineInputHandler implements InputHandler {
             case END_TURN:
                 tracker.nextTurn();
                 break;
+            case CLEAR:
+                tracker.clear();
+                break;
             default: throw new IllegalCommandException(commandString + " isn't a valid command");
         }
     }
