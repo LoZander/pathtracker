@@ -29,3 +29,4 @@
 - Input "p Test 20" should create a player character.
 - Input "b Test 20" should create a character with the name "Test".
 - Input "b Test 20" should create a character with initiative 20.
+- Input "b Test abc" should throw an exception.

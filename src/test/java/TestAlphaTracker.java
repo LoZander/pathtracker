@@ -248,4 +248,10 @@ public class TestAlphaTracker {
         input.execute(tracker, "b Test 20");
         assertThat(tracker.getCharacter("Test").getInitiative(), is(20));
     }
+
+    @Test
+    public void inputBTestabcShouldThrowAnException() {
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> input.execute(tracker,"b Test abc"));
+        assertThat(thrown.getMessage(), is("Invalid command"));
+    }
 }
