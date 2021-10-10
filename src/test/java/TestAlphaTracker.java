@@ -254,4 +254,10 @@ public class TestAlphaTracker {
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> input.execute(tracker,"b Test abc"));
         assertThat(thrown.getMessage(), is("Invalid command"));
     }
+
+    @Test
+    public void inputBTest20ShouldCreateAnEnemyCharacter() {
+        input.execute(tracker, "b Test 20");
+        assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ENEMY));
+    }
 }

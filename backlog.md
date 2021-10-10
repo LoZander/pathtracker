@@ -1,6 +1,5 @@
 # Backlog
-- "b [name] [initiative]" should create an enemy character
-    with said name and initiative.
+- "d [Name]" deletes the character by said name.
 - Terminal user interface
 - Dying condition should be settable
 - Tracker should auto-save
