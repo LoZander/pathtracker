@@ -304,4 +304,10 @@ public class TestAlphaTracker {
         tracker.addCharacter("Test", CharacterType.ALLY, 2);
         assertThat(tracker.getCharacters().size(), is(1));
     }
+
+    @Test
+    public void missingCommandVariablesShouldCauseException() {
+        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker, "p"));
+        assertThat(thrown.getMessage(), is("Missing argument. Command must follow the syntax: [name] [initiative]"));
+    }
 }

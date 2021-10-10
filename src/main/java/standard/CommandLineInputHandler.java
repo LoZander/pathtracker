@@ -4,20 +4,23 @@ import framework.CharacterType;
 import framework.InputHandler;
 import framework.Tracker;
 
+import java.util.List;
+
 public class CommandLineInputHandler implements InputHandler {
     @Override
-    public void execute(Tracker tracker, String command) throws NumberFormatException {
-        String[] words = command.split(" ");
-        String commandWord = words[0];
+    public void execute(Tracker tracker, String commandString) throws NumberFormatException {
+        Command command = new Command(commandString);
+        String commandWord = command.getCommandWord();
+        List<String> variables = command.getVariables();
         switch (commandWord) {
             case "p":
-                createCharacter(tracker, words, CharacterType.ALLY);
+                createCharacter(tracker, variables, CharacterType.ALLY);
                 break;
             case "b":
-                createCharacter(tracker, words, CharacterType.ENEMY);
+                createCharacter(tracker, variables, CharacterType.ENEMY);
                 break;
             case "d":
-                tracker.removeCharacter(words[1]);
+                tracker.removeCharacter(variables.get(0));
                 break;
             case "r":
                 tracker.nextTurn();
@@ -26,12 +29,12 @@ public class CommandLineInputHandler implements InputHandler {
         }
     }
 
-    private void createCharacter(Tracker tracker, String[] variables, CharacterType type) throws IllegalArgumentException {
+    private void createCharacter(Tracker tracker, List<String> variables, CharacterType type) throws IllegalArgumentException {
         String name;
         int initiative;
         try {
-            name = variables[1];
-            initiative = Integer.parseInt(variables[2]);
+            name = variables.get(0);
+            initiative = Integer.parseInt(variables.get(1));
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalCommandException("Missing argument. Command must follow the syntax: [name] [initiative]");
         } catch (NumberFormatException error) {
