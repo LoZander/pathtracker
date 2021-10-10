@@ -220,4 +220,11 @@ public class TestAlphaTracker {
         Exception thrown = assertThrows(IllegalArgumentException.class,() -> input.execute(tracker, "p Test abc"));
         assertThat(thrown.getMessage(), is("Invalid command"));
     }
+
+    @Test
+    public void inputPTest20ShouldCreatePlayerCharacter() {
+        InputHandler input = new CommandLineInputHandler();
+        input.execute(tracker, "p Test 20");
+        assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ALLY));
+    }
 }
