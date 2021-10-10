@@ -333,4 +333,10 @@ public class TestAlphaTracker {
         tracker.setDyingCondOfCharacter("Test", 1);
         assertThat(tracker.getCharacter("Test").getDyingCondition(), is(1));
     }
+
+    @Test
+    public void characterDyingConditionShouldStartAtZero() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        assertThat(tracker.getCharacter("Test").getDyingCondition(), is(0));
+    }
 }
