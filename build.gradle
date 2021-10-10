@@ -9,9 +9,9 @@ repositories {
 dependencies {
     // Depend on JUnit 5. Require both API and Engine
     testImplementation group: 'org.junit.jupiter',
-            name: 'junit-jupiter-api', version: '5.6.2'
+            name: 'junit-jupiter-api', version: '5.8.1'
     testRuntimeOnly group: 'org.junit.jupiter',
-            name: 'junit-jupiter-engine', version: '5.6.2'
+            name: 'junit-jupiter-engine', version: '5.8.1'
 
     // Use the Hamcrest matcher library
     testImplementation group: 'org.hamcrest',

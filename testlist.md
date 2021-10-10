@@ -1,0 +1,45 @@
+# Test-list
+### Alpha Tracker
+- Ally character added to tracker should have the correct type.
+- Enemy character added to tracker should have the correct type.
+- Character named "Test" has the name "Test"
+- Character named "Test2" has the name "Test2"
+- Character created with initiative 10 actually has initiative 10.
+- Character created with initiative 20 actually has initiative 20.
+- Should be able to add multiple characters to tracker
+- When there is no character in turn, the next turn is the character with the highest initiative
+- NextTurn should change character in turn to the next character.
+- Character after last character of the tracker is the first character of the tracker.
+- Characters are sorted by initiative
+- Characters are secondly sorted by type (ally then enemy)
+- Characters are thirdly sorted by name (A-Z)
+- Characters can be removed from the tracker
+- Removing a character should not remove anything else
+- Can get character by its name
+- getCharacter returns null if there is no character by the given name
+- getPlayerInTurn returns null if there are no players in the tracker
+- Removing a the player in turn, should make change turn to the next character
+- Adding a player with a higher initiative should not change the player in turn.
+- Input "p Test 23" should create a character with the name "Test"
+- Input "p Test 23" should create a character with initiative 23.
+- Input "p TestTwo 20" should create a character by the name "TestTwo".
+- Input "p TestTwo 20" should create a character with initiative 20.
+- Input "p Test abc" should throw an IllegalArgumentException with the message "Invalid command".
+- Input "p Test 20" should create a player character.
+- Input "b Test 20" should create a character with the name "Test".
+- Input "b Test 20" should create a character with initiative 20.
+- Input "b Test abc" should throw an exception.
+- Input "b Test 20" should create an enemy character.
+- Input "d Test" should remove the character by the name "Test".
+- Input "d Test" should do nothing if the character by the name "Test" doesn't exist.
+- If there is no character in turn, input "r" should make it the first characters turn
+- If the first character is in turn, input "r" should change the turn to the next character
+- Invalid command word should cause an exception
+- Attempting to add a character who is already on the tracker does nothing (not added).
+- Missing command variables should cause an exception
+- Clearing the tracker should remove all characters
+- Input "clear" should clear the tracker
+- Should be able to set the dying condition of a character
+- Character dying condition should start at 0
+- Input "w Test 1" should set the dying condition of character "Test" to 1
+- Setting the condition of a non-existing character does nothing
