@@ -1,11 +1,14 @@
 import framework.CharacterType;
+import framework.InputHandler;
 import framework.Tracker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import standard.CommandLineInputHandler;
 import standard.TrackerImpl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAlphaTracker {
     private Tracker tracker;
@@ -195,5 +198,26 @@ public class TestAlphaTracker {
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
         tracker.addCharacter("Test3", CharacterType.ALLY, 25);
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+    }
+
+    @Test
+    public void shouldPTest23CreateCharacterWithNameTestAndInitiative23() {
+        InputHandler input = new CommandLineInputHandler();
+        input.execute(tracker,"p Test 23");
+        assertThat(tracker.getCharacter("Test").getInitiative(), is(23));
+    }
+
+    @Test
+    public void shouldPTestTwo20CreateCharacterWithNameTestTwoAndInitiative20() {
+        InputHandler input = new CommandLineInputHandler();
+        input.execute(tracker,"p TestTwo 20");
+        assertThat(tracker.getCharacter("TestTwo").getInitiative(), is(20));
+    }
+
+    @Test
+    public void inputPTestabcShouldThrowException() {
+        InputHandler input = new CommandLineInputHandler();
+        Exception thrown = assertThrows(IllegalArgumentException.class,() -> input.execute(tracker, "p Test abc"));
+        assertThat(thrown.getMessage(), is("Invalid command"));
     }
 }
