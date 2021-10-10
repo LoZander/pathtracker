@@ -3,6 +3,7 @@ import framework.InputHandler;
 import framework.Tracker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import standard.factories.AlphaTrackerFactory;
 import standard.CommandLineInputHandler;
 import standard.TrackerImpl;
 
@@ -16,7 +17,7 @@ public class TestAlphaTracker {
 
     @BeforeEach
     public void setup() {
-        tracker = new TrackerImpl();
+        tracker = new TrackerImpl(new AlphaTrackerFactory());
         input = new CommandLineInputHandler();
     }
 

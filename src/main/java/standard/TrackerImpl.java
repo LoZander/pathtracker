@@ -1,16 +1,18 @@
 package standard;
 
-import framework.Charact;
-import framework.CharacterType;
-import framework.Tracker;
+import framework.*;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TrackerImpl implements Tracker {
     private final List<Charact> characterList = new LinkedList<>();
     private Charact characterInTurn;
+    private SortingStrategy sortingStrategy;
+
+    public TrackerImpl(TrackerFactory trackerFactory) {
+        sortingStrategy = trackerFactory.createSortingStrategy();
+    }
 
     @Override
     public void nextTurn() {
@@ -36,10 +38,8 @@ public class TrackerImpl implements Tracker {
     }
 
     private void sort() {
-        characterList.sort(Comparator
-                .comparing(Charact::getInitiative, (a,b) -> b - a)
-                .thenComparing(Charact::getType)
-                .thenComparing(Charact::getName));
+        sortingStrategy.sort(characterList);
+
     }
 
     @Override
