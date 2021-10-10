@@ -1,6 +1,6 @@
-package standard;
-
 import framework.Gui;
+import standard.CommandGui;
+import standard.TrackerImpl;
 import standard.factories.AlphaTrackerFactory;
 
 public class main {
