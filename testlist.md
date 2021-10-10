@@ -20,9 +20,12 @@
 - getPlayerInTurn returns null if there are no players in the tracker
 - Adding a player with a higher initiative,
   should not change the player in turn.
-- Input "p Test 23" should create a character by the name "Test"
-  and initiative 23.
-- Input "p TestTwo 20" should create a character by the name "TestTwo"
-  and initiative 20.
+- Input "p Test 23" should create a character with the name "Test"
+- Input "p Test 23" should create a character with initiative 23.
+- Input "p TestTwo 20" should create a character by the name "TestTwo".
+- Input "p TestTwo 20" should create a character with initiative 20.
 - Input "p Test abc" should throw an IllegalArgumentException with the
-  the message "Invalid command".
+  message "Invalid command".
+- Input "p Test 20" should create a player character.
+- Input "b Test 20" should create a character with the name "Test".
+- Input "b Test 20" should create a character with initiative 20.

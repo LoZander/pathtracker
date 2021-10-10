@@ -12,10 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAlphaTracker {
     private Tracker tracker;
+    private InputHandler input;
 
     @BeforeEach
     public void setup() {
         tracker = new TrackerImpl();
+        input = new CommandLineInputHandler();
     }
 
     @Test
@@ -201,30 +203,49 @@ public class TestAlphaTracker {
     }
 
     @Test
-    public void shouldPTest23CreateCharacterWithNameTestAndInitiative23() {
-        InputHandler input = new CommandLineInputHandler();
+    public void shouldPTest23CreateCharacterWIthNameTest() {
+        input.execute(tracker, "p Test 23");
+        assertThat(tracker.getCharacter("Test").getName(), is("Test"));
+    }
+    @Test
+    public void shouldPTest23CreateCharacterWithInitiative23() {
         input.execute(tracker,"p Test 23");
         assertThat(tracker.getCharacter("Test").getInitiative(), is(23));
     }
 
     @Test
-    public void shouldPTestTwo20CreateCharacterWithNameTestTwoAndInitiative20() {
-        InputHandler input = new CommandLineInputHandler();
+    public void shouldPTestTwo20CreateCharacterWithNameTestTwo() {
+        input.execute(tracker,"p TestTwo 20");
+        assertThat(tracker.getCharacter("TestTwo").getName(), is("TestTwo"));
+    }
+
+    @Test
+    public void shouldPTestTwo20CreateCharacterWithInitiative20() {
         input.execute(tracker,"p TestTwo 20");
         assertThat(tracker.getCharacter("TestTwo").getInitiative(), is(20));
     }
 
     @Test
     public void inputPTestabcShouldThrowException() {
-        InputHandler input = new CommandLineInputHandler();
         Exception thrown = assertThrows(IllegalArgumentException.class,() -> input.execute(tracker, "p Test abc"));
         assertThat(thrown.getMessage(), is("Invalid command"));
     }
 
     @Test
     public void inputPTest20ShouldCreatePlayerCharacter() {
-        InputHandler input = new CommandLineInputHandler();
         input.execute(tracker, "p Test 20");
         assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ALLY));
+    }
+
+    @Test
+    public void inputBTest20ShouldCreateACharacterWithNameTest() {
+        input.execute(tracker, "b Test 20");
+        assertThat(tracker.getCharacter("Test").getName(), is("Test"));
+    }
+
+    @Test
+    public void inputBTest20ShouldCreateACharacterWithInitiative20() {
+        input.execute(tracker, "b Test 20");
+        assertThat(tracker.getCharacter("Test").getInitiative(), is(20));
     }
 }
