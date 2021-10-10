@@ -346,4 +346,9 @@ public class TestAlphaTracker {
         input.execute(tracker, DYING + " Test 1");
         assertThat(tracker.getCharacter("Test").getDyingCondition(), is(1));
     }
+
+    @Test
+    public void settingDyingConditionOfNonexistingCharacterShouldDoNothing() {
+        tracker.setDyingCondOfCharacter("Test", 1);
+    }
 }

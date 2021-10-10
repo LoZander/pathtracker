@@ -72,6 +72,9 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public void setDyingCondOfCharacter(String name, int dyingDegree) {
+        boolean characterExists = getCharacter(name) != null;
+        if(!characterExists) return;
+
         getCharacter(name).setDyingCondition(dyingDegree);
     }
 

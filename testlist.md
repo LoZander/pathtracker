@@ -38,4 +38,8 @@
 - Attempting to add a character who is already on the tracker does nothing (not added).
 - Missing command variables should cause an exception
 - Clearing the tracker should remove all characters
-- Input 'clear' should clear the tracker
+- Input "clear" should clear the tracker
+- Should be able to set the dying condition of a character
+- Character dying condition should start at 0
+- Input "w Test 1" should set the dying condition of character "Test" to 1
+- Setting the condition of a non-existing character does nothing
