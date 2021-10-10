@@ -45,7 +45,9 @@ public class CommandGui implements Gui {
                 " - Create a player/ally: p [Name] [Initiative]",
                 " - Create an enemy: p [Name] [Initiative]",
                 " - Remove a character: d [Name]",
-                " - End turn: r"
+                " - Change dying condition: w [Name] [Dying condition]",
+                " - End turn: r",
+                " - Clear tracker: clear",
         };
         Arrays.stream(introduction).forEach(System.out::println);
     }
