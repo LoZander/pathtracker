@@ -296,4 +296,11 @@ public class TestAlphaTracker {
         Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,"FakeCommandWord"));
         assertThat(thrown.getMessage(), is("FakeCommandWord isn't a valid command"));
     }
+
+    @Test
+    public void addingAlreadyExistingCharacterDoesNothing() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        tracker.addCharacter("Test", CharacterType.ALLY, 2);
+        assertThat(tracker.getCharacters().size(), is(1));
+    }
 }

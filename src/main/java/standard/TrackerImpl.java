@@ -28,6 +28,9 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public void addCharacter(String name, CharacterType characterType, int initiative) {
+        boolean characterAlreadyExists = getCharacter(name) != null;
+        if(characterAlreadyExists) return;
+
         characterList.add(new CharactImpl(name, characterType, initiative));
         sort();
     }
