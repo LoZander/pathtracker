@@ -32,3 +32,6 @@
 - Input "b Test abc" should throw an exception.
 - Input "b Test 20" should create an enemy character.
 - Input "d Test" should remove the character by the name "Test".
+- Input "d Test" should do nothing if the character by the name "Test" doesn't exist.
+- If there is no character in turn, input "r" should make it the first characters turn
+- If the first character is in turn, input "r" should change the turn to the next character

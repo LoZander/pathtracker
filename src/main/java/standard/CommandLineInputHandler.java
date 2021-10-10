@@ -20,6 +20,9 @@ public class CommandLineInputHandler implements InputHandler {
                 String var1 = words[1];
                 tracker.removeCharacter(var1);
                 break;
+            case "r":
+                tracker.nextTurn();
+                break;
         }
     }
 

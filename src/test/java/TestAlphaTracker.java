@@ -273,4 +273,21 @@ public class TestAlphaTracker {
         input.execute(tracker, "d Test");
         assertThat(tracker.getCharacter("Test"), is(nullValue()));
     }
+
+    @Test
+    public void ifNoCharacterInTurnInputRShouldMakeItTheFirstCharactersTurn() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 30);
+        tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
+        input.execute(tracker, "r");
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test"));
+    }
+
+    @Test
+    public void ifFirstCharacterIsInTurnInputRShouldChangeTurnToNextCharacter() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 30);
+        tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
+        input.execute(tracker, "r");
+        input.execute(tracker, "r");
+        assertThat(tracker.getCharacterInTurn().getName(), is("TestTwo"));
+    }
 }
