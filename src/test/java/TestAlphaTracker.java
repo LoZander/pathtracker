@@ -59,7 +59,7 @@ public class TestAlphaTracker {
     }
 
     @Test
-    public void shouldBeAbleToAdd2CharactersToTracker() {
+    public void shouldBeAbleToAddMultipleCharactersToTracker() {
         tracker.addCharacter("Test1", CharacterType.ALLY, 20);
         tracker.addCharacter("Test2", CharacterType.ALLY, 10);
         assertThat(tracker.getCharacter("Test1").getName(), is("Test1"));
@@ -310,5 +310,12 @@ public class TestAlphaTracker {
     public void missingCommandVariablesShouldCauseException() {
         Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker, "p"));
         assertThat(thrown.getMessage(), is("Missing argument. Command must follow the syntax: [name] [initiative]"));
+    }
+
+    @Test
+    public void clearingTrackerShouldRemoveAllCharacters() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        tracker.clear();
+        assertThat(tracker.getCharacter("Test"), is(nullValue()));
     }
 }

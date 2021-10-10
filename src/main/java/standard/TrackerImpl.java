@@ -76,7 +76,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public int getRound() {
-        return 0;
+    public void clear() {
+        characterList.clear();
     }
 }

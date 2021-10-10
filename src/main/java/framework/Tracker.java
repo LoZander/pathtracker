@@ -68,9 +68,7 @@ public interface Tracker {
     void setDyingCondOfCharacter(String name, int dyingDegree);
 
     /**
-     * Returns the round number of the tracker. This number is increased
-     * when every character has had a turn and the tracker starts again from the top
-     * @return The round number.
+     * Removes all characters from the tracker
      */
-    int getRound();
+    void clear();
 }
