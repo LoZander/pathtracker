@@ -7,6 +7,7 @@ public class CharactImpl implements Charact {
     private final String name;
     private final CharacterType type;
     private final int initiative;
+    private int dying;
 
     public CharactImpl(String name, CharacterType type, int initiative) {
         this.name = name;
@@ -31,7 +32,12 @@ public class CharactImpl implements Charact {
 
     @Override
     public int getDyingCondition() {
-        return 0;
+        return dying;
+    }
+
+    @Override
+    public void setDyingCondition(int dyingDegree) {
+        dying = dyingDegree;
     }
 
     public boolean equals(Object other) {

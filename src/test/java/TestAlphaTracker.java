@@ -326,4 +326,11 @@ public class TestAlphaTracker {
         input.execute(tracker, CLEAR);
         assertThat(tracker.getCharacters().size(), is(0));
     }
+
+    @Test
+    public void shouldBeAbleToSetDyingConditionOfCharacter() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        tracker.setDyingCondOfCharacter("Test", 1);
+        assertThat(tracker.getCharacter("Test").getDyingCondition(), is(1));
+    }
 }

@@ -72,7 +72,7 @@ public class TrackerImpl implements Tracker {
 
     @Override
     public void setDyingCondOfCharacter(String name, int dyingDegree) {
-
+        getCharacter(name).setDyingCondition(dyingDegree);
     }
 
     @Override

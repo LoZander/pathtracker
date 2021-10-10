@@ -39,4 +39,6 @@ public interface Charact {
      * @return The dying condition of the character.
      */
     int getDyingCondition();
+
+    void setDyingCondition(int dyingDegree);
 }
