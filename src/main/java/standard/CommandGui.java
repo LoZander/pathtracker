@@ -6,18 +6,10 @@ import framework.InputHandler;
 import framework.Tracker;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CommandGui implements Gui {
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BLACK = "\u001B[30m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
 
     private final Tracker tracker;
     private final Scanner scanner;
@@ -30,9 +22,11 @@ public class CommandGui implements Gui {
     }
 
     public void run() {
+        printIntroduction();
         String command;
         boolean run = true;
         while(run) {
+            System.out.print("> ");
             command = scanner.nextLine();
             clear();
             try {
@@ -44,6 +38,17 @@ public class CommandGui implements Gui {
         }
     }
 
+    private void printIntroduction() {
+        String[] introduction = new String[]{
+                "Welcome to Pathtracker (Alpha)",
+                "The available commands are:",
+                " - Create a player/ally: p [Name] [Initiative]",
+                " - Create an enemy: p [Name] [Initiative]",
+                " - Remove a character: d [Name]",
+                " - End turn: r"
+        };
+        Arrays.stream(introduction).forEach(System.out::println);
+    }
     private void printTracker(Tracker tracker) {
         System.out.println("o>---<o>-<o>-<o>---<o");
         tracker.getCharacters().forEach(e -> {
