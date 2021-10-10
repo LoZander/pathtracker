@@ -7,6 +7,7 @@ import standard.factories.AlphaTrackerFactory;
 import standard.CommandLineInputHandler;
 import standard.TrackerImpl;
 
+import static framework.Commands.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -252,20 +253,20 @@ public class TestAlphaTracker {
 
     @Test
     public void inputBTestabcShouldThrowAnException() {
-        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,"b Test abc"));
+        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,ADD_ENEMY + " Test abc"));
         assertThat(thrown.getMessage(), is("Initiative must be an integer"));
     }
 
     @Test
     public void inputBTest20ShouldCreateAnEnemyCharacter() {
-        input.execute(tracker, "b Test 20");
+        input.execute(tracker, ADD_ENEMY + " Test 20");
         assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ENEMY));
     }
 
     @Test
     public void inputDTestShouldRemoveTheCharacterByTheName() {
         tracker.addCharacter("Test", CharacterType.ALLY, 20);
-        input.execute(tracker, "d Test");
+        input.execute(tracker, DELETE + " Test");
         assertThat(tracker.getCharacter("Test"), is(nullValue()));
     }
 
@@ -279,7 +280,7 @@ public class TestAlphaTracker {
     public void ifNoCharacterInTurnInputRShouldMakeItTheFirstCharactersTurn() {
         tracker.addCharacter("Test", CharacterType.ALLY, 30);
         tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
-        input.execute(tracker, "r");
+        input.execute(tracker, END_TURN);
         assertThat(tracker.getCharacterInTurn().getName(), is("Test"));
     }
 
@@ -287,8 +288,8 @@ public class TestAlphaTracker {
     public void ifFirstCharacterIsInTurnInputRShouldChangeTurnToNextCharacter() {
         tracker.addCharacter("Test", CharacterType.ALLY, 30);
         tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
-        input.execute(tracker, "r");
-        input.execute(tracker, "r");
+        input.execute(tracker, END_TURN);
+        input.execute(tracker, END_TURN);
         assertThat(tracker.getCharacterInTurn().getName(), is("TestTwo"));
     }
 

@@ -1,32 +1,39 @@
 package standard;
 
-import framework.CharacterType;
-import framework.InputHandler;
-import framework.Tracker;
+import framework.*;
 
+import java.util.Arrays;
 import java.util.List;
+
+import static framework.CharacterType.*;
+import static framework.Commands.*;
 
 public class CommandLineInputHandler implements InputHandler {
     @Override
     public void execute(Tracker tracker, String commandString) throws NumberFormatException {
-        Command command = new Command(commandString);
-        String commandWord = command.getCommandWord();
-        List<String> variables = command.getVariables();
-        switch (commandWord) {
-            case "p":
-                createCharacter(tracker, variables, CharacterType.ALLY);
+        String command = (commandString.split(" "))[0];
+        List<String> variables = getCommandVariables(commandString);
+        switch (command) {
+            case ADD_ALLY:
+                createCharacter(tracker, variables, ALLY);
                 break;
-            case "b":
-                createCharacter(tracker, variables, CharacterType.ENEMY);
+            case ADD_ENEMY:
+                createCharacter(tracker, variables, ENEMY);
                 break;
-            case "d":
+            case DELETE:
                 tracker.removeCharacter(variables.get(0));
                 break;
-            case "r":
+            case END_TURN:
                 tracker.nextTurn();
                 break;
-            default: throw new IllegalCommandException(command + " isn't a valid command");
+            default: throw new IllegalCommandException(commandString + " isn't a valid command");
         }
+    }
+
+    private List<String> getCommandVariables(String commandString) {
+        List<String> commandWords = Arrays.asList(commandString.split(" "));
+        List<String> variables = commandWords.subList(1,commandWords.size());
+        return variables;
     }
 
     private void createCharacter(Tracker tracker, List<String> variables, CharacterType type) throws IllegalArgumentException {
