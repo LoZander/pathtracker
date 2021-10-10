@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="pathtracker.main:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/pathtracker_main_jar</output-path>
-    <root id="archive" name="pathtracker.main.jar">
+  <artifact type="jar" name="pathtracker-alpha:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pathtracker_alpha_jar</output-path>
+    <root id="archive" name="pathtracker.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
       </element>
