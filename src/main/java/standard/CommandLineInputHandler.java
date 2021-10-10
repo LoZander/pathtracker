@@ -9,19 +9,27 @@ public class CommandLineInputHandler implements InputHandler {
     public void execute(Tracker tracker, String command) throws NumberFormatException {
         String[] words = command.split(" ");
         String commandWord = words[0];
-        String var1 = words[1];
-        int var2;
-        CharacterType type;
+        switch (commandWord) {
+            case "p":
+                createCharacter(tracker, words[1], CharacterType.ALLY, words[2]);
+                break;
+            case "b":
+                createCharacter(tracker, words[1], CharacterType.ENEMY, words[2]);
+                break;
+            case "d":
+                String var1 = words[1];
+                tracker.removeCharacter(var1);
+                break;
+        }
+    }
+
+    private void createCharacter(Tracker tracker, String name, CharacterType type, String initiative) throws IllegalArgumentException {
+        int init;
         try {
-            var2 = Integer.parseInt(words[2]);
+            init = Integer.parseInt(initiative);
         } catch (NumberFormatException error) {
             throw new IllegalArgumentException("Invalid command");
         }
-        type = switch (commandWord) {
-            case "p" -> CharacterType.ALLY;
-            case "b" -> CharacterType.ENEMY;
-            default -> null;
-        };
-        tracker.addCharacter(var1, type, var2);
+        tracker.addCharacter(name, type, init);
     }
 }

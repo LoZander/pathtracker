@@ -31,3 +31,4 @@
 - Input "b Test 20" should create a character with initiative 20.
 - Input "b Test abc" should throw an exception.
 - Input "b Test 20" should create an enemy character.
+- Input "d Test" should remove the character by the name "Test".

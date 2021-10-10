@@ -260,4 +260,11 @@ public class TestAlphaTracker {
         input.execute(tracker, "b Test 20");
         assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ENEMY));
     }
+
+    @Test
+    public void inputDTestShouldRemoveTheCharacterByTheName() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        input.execute(tracker, "d Test");
+        assertThat(tracker.getCharacter("Test"), is(nullValue()));
+    }
 }
