@@ -1,7 +1,7 @@
-import framework.Charact;
-import framework.CharacterType;
-import framework.Gui;
-import framework.Tracker;
+import framework.*;
+import standard.NullObserver;
+import standard.TrackerImpl;
+import standard.factories.AlphaTrackerFactory;
 import standard.gui.wimp.WimpGui;
 
 import java.util.LinkedList;
@@ -9,26 +9,39 @@ import java.util.List;
 
 public class ShowLayout {
     public static void main(String[] args) {
-        Gui gui = new WimpGui(new TrackerStump());
+        Gui gui = new WimpGui(new TrackerImpl(new AlphaTrackerFactory()));
         gui.run();
     }
 }
 
 class TrackerStump implements Tracker {
 
+    private TrackerObserver observer;
+    private int roundCount;
+    private List<Charact> characters;
+
+    public TrackerStump() {
+        this.observer = new NullObserver();
+        characters = new LinkedList<>();
+    }
+
     @Override
     public void nextTurn() {
-
+        roundCount++;
+        observer.endOfTurn(null, roundCount);
     }
 
     @Override
     public void addCharacter(String name, CharacterType characterType, int initiative) {
-
+        Charact character = new CharactStump(name, initiative);
+        characters.add(character);
+        observer.characterListChanged();
     }
 
     @Override
     public void removeCharacter(String name) {
-
+        characters.removeIf(e -> e.getName().equals(name));
+        observer.characterListChanged();
     }
 
     @Override
@@ -43,12 +56,7 @@ class TrackerStump implements Tracker {
 
     @Override
     public List<Charact> getCharacters() {
-        List<Charact> list = new LinkedList<>();
-        list.add(new CharactStump("Test1", 22));
-        list.add(new CharactStump("Test2", 18));
-        list.add(new CharactStump("Test3", 12));
-        list.add(new CharactStump("Test4", 9));
-        return list;
+        return characters;
     }
 
     @Override
@@ -59,6 +67,11 @@ class TrackerStump implements Tracker {
     @Override
     public void clear() {
 
+    }
+
+    @Override
+    public void addObserver(TrackerObserver observer) {
+        this.observer = observer;
     }
 }
 

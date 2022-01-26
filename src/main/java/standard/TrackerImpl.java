@@ -9,10 +9,12 @@ public class TrackerImpl implements Tracker {
     private final List<Charact> characterList = new LinkedList<>();
     private Charact characterInTurn;
     private SortingStrategy sortingStrategy;
+    private TrackerObserver observer;
+    private int round;
 
     public TrackerImpl(TrackerFactory trackerFactory) {
         sortingStrategy = trackerFactory.createSortingStrategy();
-        TrackerObserver observer;
+        observer = new NullObserver();
     }
 
     @Override
@@ -20,8 +22,12 @@ public class TrackerImpl implements Tracker {
         if(characterInTurn == null) {
             characterInTurn = characterList.get(0);
         } else {
-            characterInTurn = characterList.get(getNextIndex());
+            int nextIndex = getNextIndex();
+            characterInTurn = characterList.get(nextIndex);
+            if(nextIndex == 0) round++;
         }
+
+        observer.endOfTurn(characterInTurn, round);
     }
 
     private int getNextIndex() {
@@ -36,6 +42,8 @@ public class TrackerImpl implements Tracker {
 
         characterList.add(new CharactImpl(name, characterType, initiative));
         sort();
+
+        observer.characterListChanged();
     }
 
     private void sort() {
@@ -54,6 +62,8 @@ public class TrackerImpl implements Tracker {
         if(isCharacterInTurn) nextTurn();
 
         characterList.remove(character);
+
+        observer.characterListChanged();
     }
 
     @Override
@@ -76,11 +86,20 @@ public class TrackerImpl implements Tracker {
         boolean characterExists = getCharacter(name) != null;
         if(!characterExists) return;
 
-        getCharacter(name).setDyingCondition(dyingDegree);
+        Charact character = getCharacter(name);
+        character.setDyingCondition(dyingDegree);
+
+        observer.characterChanged(character);
     }
 
     @Override
     public void clear() {
         characterList.clear();
+        observer.characterListChanged();
+    }
+
+    @Override
+    public void addObserver(TrackerObserver observer) {
+        this.observer = observer;
     }
 }

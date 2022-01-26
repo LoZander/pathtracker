@@ -71,4 +71,6 @@ public interface Tracker {
      * Removes all characters from the tracker
      */
     void clear();
+
+    void addObserver(TrackerObserver observer);
 }
