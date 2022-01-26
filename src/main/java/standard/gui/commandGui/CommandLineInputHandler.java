@@ -1,4 +1,4 @@
-package standard;
+package standard.gui.commandGui;
 
 import framework.*;
 

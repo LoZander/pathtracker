@@ -1,5 +1,5 @@
 import framework.Gui;
-import standard.CommandGui;
+import standard.gui.commandGui.CommandGui;
 import standard.TrackerImpl;
 import standard.factories.AlphaTrackerFactory;
 

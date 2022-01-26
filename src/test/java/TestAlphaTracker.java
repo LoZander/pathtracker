@@ -4,7 +4,7 @@ import framework.Tracker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import standard.factories.AlphaTrackerFactory;
-import standard.CommandLineInputHandler;
+import standard.gui.commandGui.CommandLineInputHandler;
 import standard.TrackerImpl;
 
 import static framework.Commands.*;
