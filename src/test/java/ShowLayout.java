@@ -1,5 +1,6 @@
 import framework.Charact;
 import framework.CharacterType;
+import framework.Gui;
 import framework.Tracker;
 import standard.gui.wimp.WimpGui;
 
@@ -8,7 +9,8 @@ import java.util.List;
 
 public class ShowLayout {
     public static void main(String[] args) {
-        new WimpGui(new TrackerStump());
+        Gui gui = new WimpGui(new TrackerStump());
+        gui.run();
     }
 }
 
@@ -72,12 +74,12 @@ class CharactStump implements Charact {
 
     @Override
     public int getInitiative() {
-        return 0;
+        return initiative;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override

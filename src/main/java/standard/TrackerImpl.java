@@ -12,6 +12,7 @@ public class TrackerImpl implements Tracker {
 
     public TrackerImpl(TrackerFactory trackerFactory) {
         sortingStrategy = trackerFactory.createSortingStrategy();
+        TrackerObserver observer;
     }
 
     @Override
