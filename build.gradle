@@ -21,3 +21,11 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task trackerWimp(type: JavaExec) {
+    group 'run'
+    description 'Runs tracker with wimp gui'
+    main = 'main'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-wimp']
+}
