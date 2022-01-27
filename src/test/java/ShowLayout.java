@@ -9,8 +9,15 @@ import java.util.List;
 
 public class ShowLayout {
     public static void main(String[] args) {
-        Gui gui = new WimpGui(new TrackerImpl(new AlphaTrackerFactory()));
+        Tracker tracker = new TrackerImpl(new AlphaTrackerFactory());
+        Gui gui = new WimpGui(tracker);
         gui.run();
+
+        tracker.addCharacter("Test1", CharacterType.ALLY,30);
+        tracker.addCharacter("Richard2", CharacterType.ALLY, 20);
+        tracker.addCharacter("Jeff3", CharacterType.ALLY, 19);
+        tracker.addCharacter("Britta4", CharacterType.ALLY, 15);
+
     }
 }
 

@@ -48,7 +48,6 @@ public class TrackerImpl implements Tracker {
 
     private void sort() {
         sortingStrategy.sort(characterList);
-
     }
 
     @Override
@@ -96,6 +95,8 @@ public class TrackerImpl implements Tracker {
     public void clear() {
         characterList.clear();
         observer.characterListChanged();
+        round = 0;
+        observer.clear();
     }
 
     @Override

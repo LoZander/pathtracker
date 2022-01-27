@@ -9,6 +9,12 @@ public class NullObserver implements TrackerObserver {
 
     @Override
     public void characterListChanged() {}
+
     @Override
     public void characterChanged(Charact character) {}
+
+    @Override
+    public void clear() {
+
+    }
 }
