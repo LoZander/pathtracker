@@ -1,4 +1,4 @@
-package framework;
+package pathtracker.framework;
 
 /**
  * The characters model either player/NPC (ally) and enemies.

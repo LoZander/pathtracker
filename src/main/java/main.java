@@ -1,9 +1,8 @@
-import framework.Gui;
-import javafx.scene.media.Track;
-import standard.gui.commandGui.CommandGui;
-import standard.TrackerImpl;
-import standard.factories.AlphaTrackerFactory;
-import standard.gui.wimp.WimpGui;
+import pathtracker.framework.Gui;
+import pathtracker.gui.commandGui.CommandGui;
+import pathtracker.standard.TrackerImpl;
+import pathtracker.standard.factories.AlphaTrackerFactory;
+import pathtracker.gui.wimp.WimpGui;
 
 public class main {
 

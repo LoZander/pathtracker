@@ -1,4 +1,4 @@
-package framework;
+package pathtracker.framework;
 
 public abstract class Commands {
     public static final String ADD_ALLY = "p";

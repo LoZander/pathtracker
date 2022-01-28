@@ -1,12 +1,12 @@
-package standard.gui.commandGui;
+package pathtracker.gui.commandGui;
 
-import framework.*;
+import pathtracker.framework.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static framework.CharacterType.*;
-import static framework.Commands.*;
+import static pathtracker.framework.CharacterType.*;
+import static pathtracker.framework.Commands.*;
 
 public class CommandLineInputHandler implements InputHandler {
     @Override

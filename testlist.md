@@ -10,6 +10,15 @@
 - When there is no character in turn, the next turn is the character with the highest initiative
 - NextTurn should change character in turn to the next character.
 - Character after last character of the tracker is the first character of the tracker.
+- Should be character 4 after 3 when turn ends and round count shouldn't change
+  - ECs [a2],[b1],[c2] of the nextTurn method
+- Should be first character after last character and round count should change 
+  - ECs [a2],[b2],[c1] of the nextTurn method
+- Should be the first character when nextTurn is called and no character is in 
+  - turn and round count should be updated to 1
+  - ECs [a2],[b3],[c3]
+- Nothing should happen when turn ends with no characters
+  - ECs [a1]
 - Characters are sorted by initiative
 - Characters are secondly sorted by type (ally then enemy)
 - Characters are thirdly sorted by name (A-Z)

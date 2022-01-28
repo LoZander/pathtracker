@@ -1,7 +1,7 @@
-package standard.gui.wimp;
+package pathtracker.gui.wimp;
 
-import framework.Charact;
-import framework.Tracker;
+import pathtracker.framework.Charact;
+import pathtracker.framework.Tracker;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

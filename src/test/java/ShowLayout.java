@@ -1,8 +1,8 @@
-import framework.*;
-import standard.NullObserver;
-import standard.TrackerImpl;
-import standard.factories.AlphaTrackerFactory;
-import standard.gui.wimp.WimpGui;
+import pathtracker.framework.*;
+import pathtracker.standard.NullObserver;
+import pathtracker.standard.TrackerImpl;
+import pathtracker.standard.factories.AlphaTrackerFactory;
+import pathtracker.gui.wimp.WimpGui;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -64,6 +64,11 @@ class TrackerStump implements Tracker {
     @Override
     public List<Charact> getCharacters() {
         return characters;
+    }
+
+    @Override
+    public int getRound() {
+        return 0;
     }
 
     @Override

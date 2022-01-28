@@ -1,7 +1,7 @@
-package standard.variants;
+package pathtracker.standard.variants;
 
-import framework.Charact;
-import framework.SortingStrategy;
+import pathtracker.framework.Charact;
+import pathtracker.framework.SortingStrategy;
 
 import java.util.Comparator;
 import java.util.List;

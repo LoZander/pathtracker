@@ -1,10 +1,10 @@
-package standard.gui.wimp;
+package pathtracker.gui.wimp;
 
-import framework.Charact;
-import framework.Gui;
-import framework.Tracker;
-import framework.TrackerObserver;
-import standard.gui.commandGui.CommandLineInputHandler;
+import pathtracker.framework.Charact;
+import pathtracker.framework.Gui;
+import pathtracker.framework.Tracker;
+import pathtracker.framework.TrackerObserver;
+import pathtracker.gui.commandGui.CommandLineInputHandler;
 
 import javax.swing.*;
 import java.awt.*;

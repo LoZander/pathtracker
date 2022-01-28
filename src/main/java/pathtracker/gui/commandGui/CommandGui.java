@@ -1,9 +1,9 @@
-package standard.gui.commandGui;
+package pathtracker.gui.commandGui;
 
-import framework.CharacterType;
-import framework.Gui;
-import framework.InputHandler;
-import framework.Tracker;
+import pathtracker.framework.CharacterType;
+import pathtracker.framework.Gui;
+import pathtracker.framework.InputHandler;
+import pathtracker.framework.Tracker;
 
 import java.io.IOException;
 import java.util.Arrays;

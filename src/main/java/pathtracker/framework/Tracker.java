@@ -1,9 +1,9 @@
-package framework;
+package pathtracker.framework;
 
 import java.util.List;
 
 /**
- * The tracker is the main interface of the framework. It acts as a coordinator or a hub if
+ * The tracker is the main interface of the pathtracker.framework. It acts as a coordinator or a hub if
  * you will. Most associations should be through the tracker.
  */
 public interface Tracker {
@@ -48,6 +48,8 @@ public interface Tracker {
      * @return The list of characters.
      */
     List<Charact> getCharacters();
+
+    int getRound();
 
     /**
      * Sets the dying condition of the character. This can normally be a value of 0-3.

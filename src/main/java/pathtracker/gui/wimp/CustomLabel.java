@@ -1,4 +1,4 @@
-package standard.gui.wimp;
+package pathtracker.gui.wimp;
 
 import javax.swing.*;
 import java.awt.*;

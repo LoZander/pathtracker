@@ -1,6 +1,6 @@
-package standard;
+package pathtracker.standard;
 
-import framework.*;
+import pathtracker.framework.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +15,14 @@ public class TrackerImpl implements Tracker {
     public TrackerImpl(TrackerFactory trackerFactory) {
         sortingStrategy = trackerFactory.createSortingStrategy();
         observer = new NullObserver();
+        round = 1;
     }
 
     @Override
     public void nextTurn() {
+        boolean isTrackerEmpty = characterList.isEmpty();
+        if(isTrackerEmpty) return;
+
         if(characterInTurn == null) {
             characterInTurn = characterList.get(0);
         } else {
@@ -78,6 +82,11 @@ public class TrackerImpl implements Tracker {
     @Override
     public List<Charact> getCharacters() {
         return new LinkedList<>(characterList);
+    }
+
+    @Override
+    public int getRound() {
+        return round;
     }
 
     @Override

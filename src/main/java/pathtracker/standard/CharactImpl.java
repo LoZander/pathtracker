@@ -1,7 +1,7 @@
-package standard;
+package pathtracker.standard;
 
-import framework.Charact;
-import framework.CharacterType;
+import pathtracker.framework.Charact;
+import pathtracker.framework.CharacterType;
 
 public class CharactImpl implements Charact {
     private final String name;

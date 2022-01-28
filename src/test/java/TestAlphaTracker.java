@@ -1,13 +1,13 @@
-import framework.CharacterType;
-import framework.InputHandler;
-import framework.Tracker;
+import pathtracker.framework.CharacterType;
+import pathtracker.framework.InputHandler;
+import pathtracker.framework.Tracker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import standard.factories.AlphaTrackerFactory;
-import standard.gui.commandGui.CommandLineInputHandler;
-import standard.TrackerImpl;
+import pathtracker.standard.factories.AlphaTrackerFactory;
+import pathtracker.gui.commandGui.CommandLineInputHandler;
+import pathtracker.standard.TrackerImpl;
 
-import static framework.Commands.*;
+import static pathtracker.framework.Commands.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -103,6 +103,78 @@ public class TestAlphaTracker {
         tracker.nextTurn();
         tracker.nextTurn();
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+    }
+
+    /**
+     * Covers ECs [a2],[b1],[c2] of the nextTurn method
+     */
+    @Test
+    public void shouldBeCharacter4After3WhenTurnEndsAndRoundCountShouldntChange() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 30);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 28);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 22);
+        tracker.addCharacter("Test4", CharacterType.ALLY, 15);
+        tracker.addCharacter("Test5", CharacterType.ALLY, 10);
+
+        tracker.nextTurn();
+        tracker.nextTurn();
+        tracker.nextTurn();
+        int beforeRound = tracker.getRound();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test3"));
+
+        tracker.nextTurn();
+        int afterRound = tracker.getRound();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test4"));
+
+        assertThat(afterRound - beforeRound, is(0));
+    }
+
+    /**
+     * Covers ECs [a2],[b2],[c1] of the nextTurn method
+     */
+    @Test
+    public void shouldBeFirstCharacterAfterLastCharacterAndRoundCountShouldUpdate() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 30);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 28);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 22);
+
+        tracker.nextTurn();
+        tracker.nextTurn();
+        tracker.nextTurn();
+
+        int beforeRound = tracker.getRound();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test3"));
+
+        tracker.nextTurn();
+        int afterRound = tracker.getRound();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+
+        assertThat(afterRound - beforeRound, is(1));
+    }
+
+    /**
+     * Covers ECs [a2],[b3],[c3] of the nextTurn method
+     */
+    @Test
+    public void shouldBeFirstCharacterAfterNoCharacterAndRoundCountShouldBe1() {
+        tracker.addCharacter("Test1", CharacterType.ALLY, 30);
+        tracker.addCharacter("Test2", CharacterType.ALLY, 28);
+        tracker.addCharacter("Test3", CharacterType.ALLY, 22);
+
+        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
+
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
+        assertThat(tracker.getRound(), is(1));
+    }
+
+    /**
+     * Covers ECs [a1] of the nextTurn method
+     */
+    @Test
+    public void nothingShouldHappenWhenTurnEndsWithNoCharacters() {
+        tracker.nextTurn();
+        assertThat(tracker.getCharacterInTurn(), is(nullValue()));
     }
 
     @Test

@@ -1,7 +1,7 @@
-package standard;
+package pathtracker.standard;
 
-import framework.Charact;
-import framework.TrackerObserver;
+import pathtracker.framework.Charact;
+import pathtracker.framework.TrackerObserver;
 
 public class NullObserver implements TrackerObserver {
     @Override

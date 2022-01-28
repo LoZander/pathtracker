@@ -1,4 +1,4 @@
-package framework;
+package pathtracker.framework;
 
 public interface TrackerObserver {
     void endOfTurn(Charact nextCharacter, int round);
