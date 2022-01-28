@@ -1,3 +1,3 @@
 # Backlog
 - Tracker should auto-save
-- Graphical window based GUI
+- Add buttons to wimp gui
