@@ -25,7 +25,14 @@ test {
 task trackerWimp(type: JavaExec) {
     group 'run'
     description 'Runs tracker with wimp gui'
-    main = 'main'
+    main = 'pathtracker.main'
     classpath = sourceSets.main.runtimeClasspath
     args = ['-wimp']
+}
+
+task wimpGuiNextTurnDemo(type: JavaExec) {
+    group 'demos'
+    description 'A demonstration of how the Wimp gui responds ending the turn'
+    main = 'pathtracker.demos.WimpGuiNextTurnDemo'
+    classpath = sourceSets.main.runtimeClasspath
 }
