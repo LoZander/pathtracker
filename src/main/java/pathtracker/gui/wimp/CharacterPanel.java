@@ -8,8 +8,10 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class CharacterPanel extends JPanel {
-    public CharacterPanel(Charact character, Tracker tracker) {
+    private FontStrategy fontStrategy;
+    public CharacterPanel(Charact character, Tracker tracker, FontStrategy fontStrategy) {
         super();
+        this.fontStrategy = fontStrategy;
         setLayout(new BorderLayout(6,6));
 
         JPanel acPanel = new JPanel();
@@ -17,13 +19,14 @@ public class CharacterPanel extends JPanel {
         acPanel.add(Box.createHorizontalStrut(6));
         acPanel.setOpaque(false);
 
-        JLabel initiative = new CustomLabel(character.getInitiative() + "");
-        initiative.setFont(new Font("Arial", Font.PLAIN, 30));
+        JLabel initiative = new JLabel(character.getInitiative() + "");
+        initiative.setFont(fontStrategy.getBigFont());
         acPanel.add(initiative);
 
         add(acPanel, BorderLayout.WEST);
 
-        JLabel name = new CustomLabel(character.getName());
+        JLabel name = new JLabel(character.getName());
+        name.setFont(fontStrategy.getDefaultFont());
         add(name, BorderLayout.CENTER);
 
         setInTurn(character.equals(tracker.getCharacterInTurn()));

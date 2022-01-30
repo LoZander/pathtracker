@@ -59,7 +59,7 @@ public class TrackerStub implements Tracker {
 
     @Override
     public int getRound() {
-        return 0;
+        return round;
     }
 
     @Override
