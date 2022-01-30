@@ -15,7 +15,7 @@ public class TrackerImpl implements Tracker {
     public TrackerImpl(TrackerFactory trackerFactory) {
         sortingStrategy = trackerFactory.createSortingStrategy();
         observer = new NullObserver();
-        round = 1;
+        round = 0;
     }
 
     @Override
@@ -23,20 +23,19 @@ public class TrackerImpl implements Tracker {
         boolean isTrackerEmpty = characterList.isEmpty();
         if(isTrackerEmpty) return;
 
-        if(characterInTurn == null) {
-            characterInTurn = characterList.get(0);
-        } else {
-            int nextIndex = getNextIndex();
-            characterInTurn = characterList.get(nextIndex);
-            if(nextIndex == 0) round++;
-        }
+        int nextIndex = getNextIndex();
+        characterInTurn = characterList.get(nextIndex);
+        if(nextIndex == 0) round++;
 
         observer.endOfTurn(characterInTurn, round);
     }
 
     private int getNextIndex() {
+        if(characterInTurn == null) return 0;
+
         int index = characterList.indexOf(characterInTurn);
-        return (index + 1) % characterList.size();
+        int nextIndex = (index + 1) % characterList.size();
+        return nextIndex;
     }
 
     @Override
