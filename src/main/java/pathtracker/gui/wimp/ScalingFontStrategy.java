@@ -9,7 +9,7 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(12 * scale);
+        int fontSize = (int) Math.round(10 * scale);
 
         return new Font(fontName, fontStyle, fontSize);
     }
@@ -20,7 +20,7 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(18 * scale);
+        int fontSize = (int) Math.round(16 * scale);
 
         return new Font(fontName, fontStyle, fontSize);
     }
