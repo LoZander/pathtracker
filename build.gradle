@@ -25,9 +25,15 @@ test {
 task trackerWimp(type: JavaExec) {
     group 'run'
     description 'Runs tracker with wimp gui'
-    main = 'pathtracker.main'
+    main = 'wimpTracker'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['-wimp']
+}
+
+task fontScalingDemo(type: JavaExec) {
+    group 'demos'
+    description 'A deomnstration of the different scaling fonts'
+    main = 'pathtracker.demos.FontScalingStrategyDemo'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 task wimpGuiNextTurnDemo(type: JavaExec) {
