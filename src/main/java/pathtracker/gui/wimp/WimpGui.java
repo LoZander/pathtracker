@@ -17,7 +17,7 @@ public class WimpGui implements Gui, TrackerObserver {
     private FontStrategy fontStrategy;
     private CommandLineInputHandler commandLineInputHandler;
     private JLabel roundCountLabel;
-    private Container characterContainer;
+    private JPanel characterContainer;
 
     public WimpGui(Tracker tracker) {
         this.tracker = tracker;
@@ -59,6 +59,7 @@ public class WimpGui implements Gui, TrackerObserver {
         contentPane.setLayout(new BorderLayout());
 
         mainFrame.setMinimumSize(sizeStrategy.createDimension(300,600));
+        mainFrame.setPreferredSize(sizeStrategy.createDimension(300,600));
         return contentPane;
     }
 
@@ -103,7 +104,7 @@ public class WimpGui implements Gui, TrackerObserver {
     private void createCharacterContainer(Container parent) {
         characterContainer = new JPanel();
         characterContainer.setLayout(new BoxLayout(characterContainer, BoxLayout.Y_AXIS));
-        parent.add(characterContainer, BorderLayout.CENTER);
+        parent.add(new JScrollPane(characterContainer), BorderLayout.CENTER);
     }
 
 
@@ -152,8 +153,11 @@ public class WimpGui implements Gui, TrackerObserver {
     private void updateCharacterList() {
         characterContainer.removeAll();
         tracker.getCharacters().forEach(c -> {
-            characterContainer.add(new CharacterPanel(c, tracker, sizeStrategy, fontStrategy));
+            CharacterPanel character = new CharacterPanel(c, sizeStrategy, fontStrategy);
+            characterContainer.add(character);
             characterContainer.add(Box.createRigidArea(sizeStrategy.createDimension(0,10)));
+            character.setInTurn(c.equals(tracker.getCharacterInTurn()));
+            if(c.equals(tracker.getCharacterInTurn())) characterContainer.scrollRectToVisible(character.getBounds()); // why do i need this here and also in CharacterPanel?
         });
         characterContainer.revalidate();
         characterContainer.repaint();

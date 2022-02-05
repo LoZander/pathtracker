@@ -10,7 +10,7 @@ import java.awt.*;
 public class CharacterPanel extends JPanel {
     private final SizeStrategy sizeStrategy;
     private FontStrategy fontStrategy;
-    public CharacterPanel(Charact character, Tracker tracker, SizeStrategy sizeStrategy, FontStrategy fontStrategy) {
+    public CharacterPanel(Charact character, SizeStrategy sizeStrategy, FontStrategy fontStrategy) {
         super();
         this.fontStrategy = fontStrategy;
         this.sizeStrategy = sizeStrategy;
@@ -31,8 +31,6 @@ public class CharacterPanel extends JPanel {
         name.setFont(fontStrategy.getDefaultFont());
         add(name, BorderLayout.CENTER);
 
-        setInTurn(character.equals(tracker.getCharacterInTurn()));
-
         setBackground(Color.LIGHT_GRAY);
 
         switch(character.getType()) {
@@ -43,13 +41,14 @@ public class CharacterPanel extends JPanel {
                 setBackground(new Color(232, 126, 126));
                 break;
         }
-        character.getType();
+
         setBorder(new LineBorder(Color.BLACK));
     }
 
     public void setInTurn(boolean inTurn) {
         int width = inTurn ? 200 : 160;
         setAbsoluteSize(sizeStrategy.createDimension(width,50));
+        ((JViewport) getParent().getParent()).scrollRectToVisible(getBounds()); // Why do i need this here and also in Wimp Gui?
     }
 
     private void setAbsoluteSize(Dimension size) {
