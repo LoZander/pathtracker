@@ -48,8 +48,8 @@ public class CharacterPanel extends JPanel {
     }
 
     public void setInTurn(boolean inTurn) {
-        int width = inTurn ? 100 : 80;
-        setAbsoluteSize(sizeStrategy.createDimension(width,25));
+        int width = inTurn ? 200 : 160;
+        setAbsoluteSize(sizeStrategy.createDimension(width,50));
     }
 
     private void setAbsoluteSize(Dimension size) {

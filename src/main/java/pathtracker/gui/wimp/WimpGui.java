@@ -58,7 +58,7 @@ public class WimpGui implements Gui, TrackerObserver {
         Container contentPane = mainFrame.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        mainFrame.setMinimumSize(sizeStrategy.createDimension(160,300));
+        mainFrame.setMinimumSize(sizeStrategy.createDimension(300,600));
         return contentPane;
     }
 
@@ -153,7 +153,7 @@ public class WimpGui implements Gui, TrackerObserver {
         characterContainer.removeAll();
         tracker.getCharacters().forEach(c -> {
             characterContainer.add(new CharacterPanel(c, tracker, sizeStrategy, fontStrategy));
-            characterContainer.add(Box.createRigidArea(sizeStrategy.createDimension(0,5)));
+            characterContainer.add(Box.createRigidArea(sizeStrategy.createDimension(0,10)));
         });
         characterContainer.revalidate();
         characterContainer.repaint();

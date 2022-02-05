@@ -9,7 +9,7 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(10 * scale);
+        int fontSize = (int) Math.round(18 * scale);
 
         return new Font(fontName, fontStyle, fontSize);
     }
@@ -20,7 +20,7 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(16 * scale);
+        int fontSize = (int) Math.round(28 * scale);
 
         return new Font(fontName, fontStyle, fontSize);
     }
@@ -31,7 +31,7 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(8 * scale);
+        int fontSize = (int) Math.round(12 * scale);
 
         return new Font(fontName, fontStyle, fontSize);
     }
@@ -42,13 +42,13 @@ public class ScalingFontStrategy implements FontStrategy {
 
         String fontName = "Arial";
         int fontStyle = Font.PLAIN;
-        int fontSize = (int) Math.round(20 * scale);
+        int fontSize = (int) Math.round(40 * scale);
         return new Font(fontName, fontStyle, fontSize);
     }
 
     private double getScale() {
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
         double width = resolution.getWidth();
-        return width / 1080;
+        return width / 1920;
     }
 }
