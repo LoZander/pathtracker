@@ -8,10 +8,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class CharacterPanel extends JPanel {
+    private final SizeStrategy sizeStrategy;
     private FontStrategy fontStrategy;
-    public CharacterPanel(Charact character, Tracker tracker, FontStrategy fontStrategy) {
+    public CharacterPanel(Charact character, Tracker tracker, SizeStrategy sizeStrategy, FontStrategy fontStrategy) {
         super();
         this.fontStrategy = fontStrategy;
+        this.sizeStrategy = sizeStrategy;
         setLayout(new BorderLayout(6,6));
 
         JPanel acPanel = new JPanel();
@@ -46,8 +48,8 @@ public class CharacterPanel extends JPanel {
     }
 
     public void setInTurn(boolean inTurn) {
-        int width = inTurn ? 200 : 160;
-        setAbsoluteSize(new Dimension(width,60));
+        int width = inTurn ? 100 : 80;
+        setAbsoluteSize(sizeStrategy.createDimension(width,25));
     }
 
     private void setAbsoluteSize(Dimension size) {

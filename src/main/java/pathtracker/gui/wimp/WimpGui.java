@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class WimpGui implements Gui, TrackerObserver {
+    private final SizeStrategy sizeStrategy;
     private Tracker tracker;
     private JFrame mainFrame;
     private FontStrategy fontStrategy;
@@ -20,6 +21,7 @@ public class WimpGui implements Gui, TrackerObserver {
 
     public WimpGui(Tracker tracker) {
         this.tracker = tracker;
+        sizeStrategy = new ScalingSizeStrategy();
         tracker.addObserver(this);
         commandLineInputHandler = new CommandLineInputHandler();
         this.fontStrategy = new ScalingFontStrategy();
@@ -56,7 +58,7 @@ public class WimpGui implements Gui, TrackerObserver {
         Container contentPane = mainFrame.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        mainFrame.setMinimumSize(new Dimension(400,800));
+        mainFrame.setMinimumSize(sizeStrategy.createDimension(160,300));
         return contentPane;
     }
 
@@ -150,8 +152,8 @@ public class WimpGui implements Gui, TrackerObserver {
     private void updateCharacterList() {
         characterContainer.removeAll();
         tracker.getCharacters().forEach(c -> {
-            characterContainer.add(new CharacterPanel(c,tracker,fontStrategy));
-            characterContainer.add(Box.createRigidArea(new Dimension(0,10)));
+            characterContainer.add(new CharacterPanel(c, tracker, sizeStrategy, fontStrategy));
+            characterContainer.add(Box.createRigidArea(sizeStrategy.createDimension(0,5)));
         });
         characterContainer.revalidate();
         characterContainer.repaint();
