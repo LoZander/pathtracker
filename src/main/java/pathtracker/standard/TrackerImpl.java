@@ -43,6 +43,7 @@ public class TrackerImpl implements Tracker {
         boolean nameIsEmptyString = name.equals("");
         if(nameIsEmptyString) throw new IllegalArgumentException("A character with no name cannot be added to the tracker");
 
+
         boolean duplicateCharacter = getCharacter(name) != null;
         if(duplicateCharacter) throw new IllegalArgumentException("Character by the name " + name + " already exists");
 

@@ -5,6 +5,7 @@ import pathtracker.framework.Gui;
 import pathtracker.framework.Tracker;
 import pathtracker.framework.TrackerObserver;
 import pathtracker.gui.commandGui.CommandLineInputHandler;
+import pathtracker.gui.commandGui.IllegalCommandException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -120,7 +121,14 @@ public class WimpGui implements Gui, TrackerObserver {
         JTextField commandLine = new JTextField();
         commandLine.setFont(fontStrategy.getDefaultFont());
         commandLine.addActionListener(e -> {
-            commandLineInputHandler.execute(tracker, commandLine.getText());
+            String exceptionMessage = "";
+
+            try {
+                commandLineInputHandler.execute(tracker, commandLine.getText());
+            } catch (IllegalArgumentException | IllegalCommandException error) {
+                exceptionMessage = error.getMessage();
+                JOptionPane.showMessageDialog(mainFrame, exceptionMessage,"Warning",JOptionPane.WARNING_MESSAGE);
+            }
             commandLine.setText("");
         });
         parent.add(commandLine, BorderLayout.SOUTH);

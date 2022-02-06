@@ -72,8 +72,3 @@ public class CommandLineInputHandler implements InputHandler {
         tracker.addCharacter(name, type, initiative);
     }
 }
-
-class IllegalCommandException extends RuntimeException {
-    public IllegalCommandException() {super();}
-    public IllegalCommandException(String s) {super(s);}
-}
