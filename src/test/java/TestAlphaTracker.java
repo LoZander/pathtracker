@@ -336,4 +336,15 @@ public class TestAlphaTracker {
         assertThat(exceptionMessage, is("There is no character by the name RidiculousName and thus it cannot be removed"));
     }
 
+    @Test
+    public void addingACharacterWithNoNameShouldThrowAnException() {
+        String exceptionMessage = "";
+        try {
+            tracker.addCharacter("", CharacterType.ALLY, 20);
+        } catch (IllegalArgumentException error) {
+            exceptionMessage = error.getMessage();
+        }
+
+        assertThat(exceptionMessage, is("A character with no name cannot be added to the tracker"));
+    }
 }

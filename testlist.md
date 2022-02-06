@@ -35,6 +35,7 @@
 - Character dying condition should start at 0
 - Setting the condition of a non-existing character does nothing
 - Adding already existing character should throw exception
+- Adding a character with no name should throw exception
 
 ### CommandLineInputHandler
 - Input "p Test 23" should create a character with the name "Test"
