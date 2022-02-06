@@ -39,11 +39,11 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public void addCharacter(String name, CharacterType characterType, int initiative) {
-        boolean characterAlreadyExists = getCharacter(name) != null;
-        if(characterAlreadyExists) return;
+    public void addCharacter(String name, CharacterType type, int initiative) {
+        boolean duplicateCharacter = getCharacter(name) != null;
+        if(duplicateCharacter) throw new IllegalArgumentException("Character by the name " + name + " already exists");
 
-        characterList.add(new CharactImpl(name, characterType, initiative));
+        characterList.add(new CharactImpl(name, type, initiative));
         sort();
 
         observer.characterListChanged();
@@ -57,8 +57,8 @@ public class TrackerImpl implements Tracker {
     public void removeCharacter(String name) {
         Charact character = getCharacter(name);
 
-        boolean characterExists = character != null;
-        if(!characterExists) return;
+        boolean characterExists = getCharacter(name) != null;
+        if(!characterExists) throw new IllegalArgumentException("There is no character by the name " + name + " and thus it cannot be removed");
 
         boolean isCharacterInTurn = character.equals(characterInTurn);
         if(isCharacterInTurn) nextTurn();

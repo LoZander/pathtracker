@@ -3,12 +3,12 @@ package pathtracker.framework;
 import java.util.List;
 
 /**
- * The tracker is the main interface of the pathtracker.framework. It acts as a coordinator or a hub if
+ * The tracker is the main interface of the pathtracker. It acts as a coordinator or a hub if
  * you will. Most associations should be through the tracker.
  */
 public interface Tracker {
     /**
-     * Advances the tacker to the next character in line.
+     * Advances the tacker to the next character in line. If the tracker is empty, nothing happens.
      */
     void nextTurn();
 
@@ -18,21 +18,23 @@ public interface Tracker {
      *      Ally
      *      Enemy
      * @param name Name of the character.
-     * @param characterType Type of the character.
+     * @param type Type of the character.
      * @param initiative Initiative of the character.
+     * @exception IllegalArgumentException Thrown if the arguments are invalid:
+     *      Invalid name: empty string or duplicate name
      */
-    void addCharacter(String name, CharacterType characterType, int initiative);
+    void addCharacter(String name, CharacterType type, int initiative);
 
     /**
-     * Removes a character from the tracker, if they exist.
+     * Removes a character from the tracker.
      * @param name Name of the character to be selected.
-     *
+     * @exception IllegalArgumentException Thrown if there is no character by the name.
      */
     void removeCharacter(String name);
 
     /**
-     * Returns the character who's turn it is.
-     * @return The character who's turn it is.
+     * Returns the character whose turn it is.
+     * @return The character whose turn it is.
      */
     Charact getCharacterInTurn();
 
@@ -49,6 +51,10 @@ public interface Tracker {
      */
     List<Charact> getCharacters();
 
+    /**
+     * Returns the round count.
+     * @return Round count.
+     */
     int getRound();
 
     /**
@@ -70,9 +76,13 @@ public interface Tracker {
     void setDyingCondOfCharacter(String name, int dyingDegree);
 
     /**
-     * Removes all characters from the tracker
+     * Removes all characters from the tracker and resets round count.
      */
     void clear();
 
+    /**
+     * Adds a tracker observer to the tracker, for purpose of observer pattern.
+     * @param observer The tracker observer to be added.
+     */
     void addObserver(TrackerObserver observer);
 }

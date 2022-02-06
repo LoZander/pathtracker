@@ -276,113 +276,7 @@ public class TestAlphaTracker {
         assertThat(tracker.getCharacterInTurn().getName(), is("Test1"));
     }
 
-    @Test
-    public void shouldPTest23CreateCharacterWIthNameTest() {
-        input.execute(tracker, "p Test 23");
-        assertThat(tracker.getCharacter("Test").getName(), is("Test"));
-    }
-    @Test
-    public void shouldPTest23CreateCharacterWithInitiative23() {
-        input.execute(tracker,"p Test 23");
-        assertThat(tracker.getCharacter("Test").getInitiative(), is(23));
-    }
 
-    @Test
-    public void shouldPTestTwo20CreateCharacterWithNameTestTwo() {
-        input.execute(tracker,"p TestTwo 20");
-        assertThat(tracker.getCharacter("TestTwo").getName(), is("TestTwo"));
-    }
-
-    @Test
-    public void shouldPTestTwo20CreateCharacterWithInitiative20() {
-        input.execute(tracker,"p TestTwo 20");
-        assertThat(tracker.getCharacter("TestTwo").getInitiative(), is(20));
-    }
-
-    @Test
-    public void inputPTestabcShouldThrowException() {
-        Exception thrown = assertThrows(Exception.class,() -> input.execute(tracker, "p Test abc"));
-        assertThat(thrown.getMessage(), is("Initiative must be an integer"));
-    }
-
-    @Test
-    public void inputPTest20ShouldCreatePlayerCharacter() {
-        input.execute(tracker, "p Test 20");
-        assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ALLY));
-    }
-
-    @Test
-    public void inputBTest20ShouldCreateACharacterWithNameTest() {
-        input.execute(tracker, "b Test 20");
-        assertThat(tracker.getCharacter("Test").getName(), is("Test"));
-    }
-
-    @Test
-    public void inputBTest20ShouldCreateACharacterWithInitiative20() {
-        input.execute(tracker, "b Test 20");
-        assertThat(tracker.getCharacter("Test").getInitiative(), is(20));
-    }
-
-    @Test
-    public void inputBTestabcShouldThrowAnException() {
-        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,ADD_ENEMY + " Test abc"));
-        assertThat(thrown.getMessage(), is("Initiative must be an integer"));
-    }
-
-    @Test
-    public void inputBTest20ShouldCreateAnEnemyCharacter() {
-        input.execute(tracker, ADD_ENEMY + " Test 20");
-        assertThat(tracker.getCharacter("Test").getType(), is(CharacterType.ENEMY));
-    }
-
-    @Test
-    public void inputDTestShouldRemoveTheCharacterByTheName() {
-        tracker.addCharacter("Test", CharacterType.ALLY, 20);
-        input.execute(tracker, DELETE + " Test");
-        assertThat(tracker.getCharacter("Test"), is(nullValue()));
-    }
-
-    @Test
-    public void inputDTestShouldDoNothingIfTheCharacterDoesntExist() {
-        input.execute(tracker, "d Test");
-        assertThat(tracker.getCharacter("Test"), is(nullValue()));
-    }
-
-    @Test
-    public void ifNoCharacterInTurnInputRShouldMakeItTheFirstCharactersTurn() {
-        tracker.addCharacter("Test", CharacterType.ALLY, 30);
-        tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
-        input.execute(tracker, END_TURN);
-        assertThat(tracker.getCharacterInTurn().getName(), is("Test"));
-    }
-
-    @Test
-    public void ifFirstCharacterIsInTurnInputRShouldChangeTurnToNextCharacter() {
-        tracker.addCharacter("Test", CharacterType.ALLY, 30);
-        tracker.addCharacter("TestTwo", CharacterType.ALLY, 20);
-        input.execute(tracker, END_TURN);
-        input.execute(tracker, END_TURN);
-        assertThat(tracker.getCharacterInTurn().getName(), is("TestTwo"));
-    }
-
-    @Test
-    public void invalidCommandWordShouldCauseException() {
-        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker,"FakeCommandWord"));
-        assertThat(thrown.getMessage(), is("FakeCommandWord isn't a valid command"));
-    }
-
-    @Test
-    public void addingAlreadyExistingCharacterDoesNothing() {
-        tracker.addCharacter("Test", CharacterType.ALLY, 20);
-        tracker.addCharacter("Test", CharacterType.ALLY, 2);
-        assertThat(tracker.getCharacters().size(), is(1));
-    }
-
-    @Test
-    public void missingCommandVariablesShouldCauseException() {
-        Exception thrown = assertThrows(Exception.class, () -> input.execute(tracker, "p"));
-        assertThat(thrown.getMessage(), is("Missing argument. Command must follow the syntax: [name] [initiative]"));
-    }
 
     @Test
     public void clearingTrackerShouldRemoveAllCharacters() {
@@ -413,14 +307,33 @@ public class TestAlphaTracker {
     }
 
     @Test
-    public void inputWTest1ShouldSetDyingCondOfCharacterTestTo1() {
-        tracker.addCharacter("Test", CharacterType.ALLY, 20);
-        input.execute(tracker, DYING + " Test 1");
-        assertThat(tracker.getCharacter("Test").getDyingCondition(), is(1));
-    }
-
-    @Test
     public void settingDyingConditionOfNonexistingCharacterShouldDoNothing() {
         tracker.setDyingCondOfCharacter("Test", 1);
     }
+
+    @Test
+    public void addingAlreadyExistingCharacterShouldThrowException() {
+        tracker.addCharacter("Test", CharacterType.ALLY, 20);
+        String exceptionMessage = "";
+
+        try {
+            tracker.addCharacter("Test", CharacterType.ALLY, 2);
+        } catch (IllegalArgumentException error) {
+            exceptionMessage = error.getMessage();
+        }
+
+        assertThat(exceptionMessage, is("Character by the name Test already exists"));
+    }
+
+    @Test
+    public void removingACharacterThatDoesntExistShouldThrowException() {
+        String exceptionMessage = "";
+        try {
+            tracker.removeCharacter("RidiculousName");
+        } catch (IllegalArgumentException error) {
+            exceptionMessage = error.getMessage();
+        }
+        assertThat(exceptionMessage, is("There is no character by the name RidiculousName and thus it cannot be removed"));
+    }
+
 }

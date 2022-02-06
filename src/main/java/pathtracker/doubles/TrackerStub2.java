@@ -40,7 +40,7 @@ public class TrackerStub2 implements Tracker {
     }
 
     @Override
-    public void addCharacter(String name, CharacterType characterType, int initiative) {
+    public void addCharacter(String name, CharacterType type, int initiative) {
 
     }
 
