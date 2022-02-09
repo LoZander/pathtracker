@@ -5,45 +5,53 @@ import pathtracker.framework.Gui;
 import pathtracker.framework.Tracker;
 import pathtracker.framework.TrackerObserver;
 import pathtracker.gui.commandGui.CommandLineInputHandler;
+import pathtracker.gui.commandGui.IllegalCommandException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class WimpGui implements Gui, TrackerObserver {
+    private final SizeStrategy sizeStrategy;
     private Tracker tracker;
     private JFrame mainFrame;
-    private Font defaultFont;
+    private FontStrategy fontStrategy;
     private CommandLineInputHandler commandLineInputHandler;
     private JLabel roundCountLabel;
-    private Container characterContainer;
+    private JPanel characterContainer;
 
     public WimpGui(Tracker tracker) {
         this.tracker = tracker;
+        sizeStrategy = new ScalingSizeStrategy();
         tracker.addObserver(this);
-        this.commandLineInputHandler = new CommandLineInputHandler();
+        commandLineInputHandler = new CommandLineInputHandler();
+        this.fontStrategy = new ScalingFontStrategy();
     }
 
     @Override
     public void run() {
         Container contentPane = createMainFrame();
-        defaultFont = new Font("Arial", Font.PLAIN, 20);
 
-        createMenuBar();
-        createRoundCount();
-        createCharacterContainer();
+        createMenuBar(mainFrame);
+        createRoundCount(contentPane);
+        createCharacterContainer(contentPane);
+
         updateCharacterList();
-        createCommandLine(contentPane);
+
+        createControlPanel(contentPane);
         
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
 
-    private void createCharacterContainer() {
-        Container contentPane = mainFrame.getContentPane();
-        characterContainer = new JPanel();
-        characterContainer.setLayout(new BoxLayout(characterContainer, BoxLayout.Y_AXIS));
-        contentPane.add(characterContainer, BorderLayout.CENTER);
+    private void createControlPanel(Container parent) {
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+
+        createButtons(controlPanel);
+        createCommandLine(controlPanel);
+        parent.add(controlPanel, BorderLayout.SOUTH);
     }
 
     private Container createMainFrame() {
@@ -51,46 +59,86 @@ public class WimpGui implements Gui, TrackerObserver {
         Container contentPane = mainFrame.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        mainFrame.setMinimumSize(new Dimension(400,800));
+        mainFrame.setMinimumSize(sizeStrategy.createDimension(300,600));
+        mainFrame.setPreferredSize(sizeStrategy.createDimension(300,600));
         return contentPane;
     }
 
-    private void createCommandLine(Container contentPane) {
-        JTextField commandLine = new JTextField();
-        commandLine.setFont(defaultFont);
-        commandLine.addActionListener(e -> {
-            commandLineInputHandler.execute(tracker, commandLine.getText());
-            commandLine.setText("");
-        });
-        contentPane.add(commandLine, BorderLayout.SOUTH);
-    }
-
-    private void createRoundCount() {
-        Container contentPane = mainFrame.getContentPane();
-        roundCountLabel = new CustomLabel("0");
-        roundCountLabel.setFont(new Font("Arial", Font.PLAIN, 30));
-        roundCountLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        roundCountLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        contentPane.add(roundCountLabel, BorderLayout.NORTH);
-    }
-
-    private void createMenuBar() {
+    private void createMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
-        JMenuItem helpMenu = new JMenuItem("Help");
-        helpMenu.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame,
+
+        JMenu toolsMenu = new JMenu("Tools");
+        toolsMenu.setFont(fontStrategy.getDefaultFont());
+        JMenuItem nextTurnItem = new JMenuItem("Next turn");
+        nextTurnItem.setFont(fontStrategy.getDefaultFont());
+        nextTurnItem.addActionListener(e -> tracker.nextTurn());
+        nextTurnItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,KeyEvent.CTRL_DOWN_MASK));
+        toolsMenu.add(nextTurnItem);
+        menuBar.add(toolsMenu);
+
+        JMenu helpMenu = new JMenu("Help");
+        helpMenu.setFont(fontStrategy.getDefaultFont());
+        JMenuItem commandItem = new JMenuItem("Commands");
+        commandItem.setFont(fontStrategy.getDefaultFont());
+        commandItem.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame,
                 "p [name] [initiative] to create a player character\n" +
                         "b [name] [initiative] to create an enemy character\n" +
                         "d [name] to delete a character\n" +
                         "r to advance the turn\n" +
                         "clear to clear the tracker"));
+        helpMenu.add(commandItem);
+
         menuBar.add(helpMenu);
-        mainFrame.setJMenuBar(menuBar);
+
+        frame.setJMenuBar(menuBar);
     }
+
+    private void createRoundCount(Container parent) {
+        roundCountLabel = new JLabel(tracker.getRound() + "");
+        roundCountLabel.setFont(fontStrategy.getBigFont());
+        roundCountLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        roundCountLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        parent.add(roundCountLabel, BorderLayout.NORTH);
+    }
+
+    private void createCharacterContainer(Container parent) {
+        characterContainer = new JPanel();
+        characterContainer.setLayout(new BoxLayout(characterContainer, BoxLayout.Y_AXIS));
+        parent.add(new JScrollPane(characterContainer), BorderLayout.CENTER);
+    }
+
+
+    private void createButtons(Container parent) {
+        JButton nextTurnButton = new JButton("Next turn");
+        nextTurnButton.setFont(fontStrategy.getDefaultFont());
+        nextTurnButton.addActionListener(e -> tracker.nextTurn());
+        parent.add(nextTurnButton, BorderLayout.SOUTH);
+        nextTurnButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+    }
+
+    private void createCommandLine(Container parent) {
+        JTextField commandLine = new JTextField();
+        commandLine.setFont(fontStrategy.getDefaultFont());
+        commandLine.addActionListener(e -> {
+            String exceptionMessage = "";
+
+            try {
+                commandLineInputHandler.execute(tracker, commandLine.getText());
+            } catch (IllegalArgumentException | IllegalCommandException error) {
+                exceptionMessage = error.getMessage();
+                JOptionPane.showMessageDialog(mainFrame, exceptionMessage,"Warning",JOptionPane.WARNING_MESSAGE);
+            }
+            commandLine.setText("");
+        });
+        parent.add(commandLine, BorderLayout.SOUTH);
+    }
+
+
 
     @Override
     public void endOfTurn(Charact nextCharacter, int round) {
-        roundCountLabel.setText(round + "");
+        roundCountLabel.setText(tracker.getRound() + "");
         updateCharacterList();
     }
 
@@ -113,8 +161,11 @@ public class WimpGui implements Gui, TrackerObserver {
     private void updateCharacterList() {
         characterContainer.removeAll();
         tracker.getCharacters().forEach(c -> {
-            characterContainer.add(new CharacterPanel(c,tracker));
-            characterContainer.add(Box.createRigidArea(new Dimension(0,10)));
+            CharacterPanel character = new CharacterPanel(c, sizeStrategy, fontStrategy);
+            characterContainer.add(character);
+            characterContainer.add(Box.createRigidArea(sizeStrategy.createDimension(0,10)));
+            character.setInTurn(c.equals(tracker.getCharacterInTurn()));
+            if(c.equals(tracker.getCharacterInTurn())) characterContainer.scrollRectToVisible(character.getBounds()); // why do i need this here and also in CharacterPanel?
         });
         characterContainer.revalidate();
         characterContainer.repaint();

@@ -10,7 +10,7 @@ import static pathtracker.framework.Commands.*;
 
 public class CommandLineInputHandler implements InputHandler {
     @Override
-    public void execute(Tracker tracker, String commandString) throws NumberFormatException {
+    public void execute(Tracker tracker, String commandString) throws IllegalArgumentException {
         String command = (commandString.split(" "))[0];
         List<String> variables = getCommandVariables(commandString);
         switch (command) {
@@ -71,9 +71,4 @@ public class CommandLineInputHandler implements InputHandler {
 
         tracker.addCharacter(name, type, initiative);
     }
-}
-
-class IllegalCommandException extends RuntimeException {
-    public IllegalCommandException() {super();}
-    public IllegalCommandException(String s) {super(s);}
 }

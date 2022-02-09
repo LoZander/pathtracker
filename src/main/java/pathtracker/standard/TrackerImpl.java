@@ -15,7 +15,7 @@ public class TrackerImpl implements Tracker {
     public TrackerImpl(TrackerFactory trackerFactory) {
         sortingStrategy = trackerFactory.createSortingStrategy();
         observer = new NullObserver();
-        round = 1;
+        round = 0;
     }
 
     @Override
@@ -23,28 +23,31 @@ public class TrackerImpl implements Tracker {
         boolean isTrackerEmpty = characterList.isEmpty();
         if(isTrackerEmpty) return;
 
-        if(characterInTurn == null) {
-            characterInTurn = characterList.get(0);
-        } else {
-            int nextIndex = getNextIndex();
-            characterInTurn = characterList.get(nextIndex);
-            if(nextIndex == 0) round++;
-        }
+        int nextIndex = getNextIndex();
+        characterInTurn = characterList.get(nextIndex);
+        if(nextIndex == 0) round++;
 
         observer.endOfTurn(characterInTurn, round);
     }
 
     private int getNextIndex() {
+        if(characterInTurn == null) return 0;
+
         int index = characterList.indexOf(characterInTurn);
-        return (index + 1) % characterList.size();
+        int nextIndex = (index + 1) % characterList.size();
+        return nextIndex;
     }
 
     @Override
-    public void addCharacter(String name, CharacterType characterType, int initiative) {
-        boolean characterAlreadyExists = getCharacter(name) != null;
-        if(characterAlreadyExists) return;
+    public void addCharacter(String name, CharacterType type, int initiative) {
+        boolean nameIsEmptyString = name.equals("");
+        if(nameIsEmptyString) throw new IllegalArgumentException("A character with no name cannot be added to the tracker");
 
-        characterList.add(new CharactImpl(name, characterType, initiative));
+
+        boolean duplicateCharacter = getCharacter(name) != null;
+        if(duplicateCharacter) throw new IllegalArgumentException("Character by the name " + name + " already exists");
+
+        characterList.add(new CharactImpl(name, type, initiative));
         sort();
 
         observer.characterListChanged();
@@ -58,8 +61,8 @@ public class TrackerImpl implements Tracker {
     public void removeCharacter(String name) {
         Charact character = getCharacter(name);
 
-        boolean characterExists = character != null;
-        if(!characterExists) return;
+        boolean characterExists = getCharacter(name) != null;
+        if(!characterExists) throw new IllegalArgumentException("There is no character by the name " + name + " and thus it cannot be removed");
 
         boolean isCharacterInTurn = character.equals(characterInTurn);
         if(isCharacterInTurn) nextTurn();

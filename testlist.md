@@ -29,6 +29,15 @@
 - getPlayerInTurn returns null if there are no players in the tracker
 - Removing a the player in turn, should make change turn to the next character
 - Adding a player with a higher initiative should not change the player in turn.
+- Clearing the tracker should remove all characters
+- Input "clear" should clear the tracker
+- Should be able to set the dying condition of a character
+- Character dying condition should start at 0
+- Setting the condition of a non-existing character does nothing
+- Adding already existing character should throw exception
+- Adding a character with no name should throw exception
+
+### CommandLineInputHandler
 - Input "p Test 23" should create a character with the name "Test"
 - Input "p Test 23" should create a character with initiative 23.
 - Input "p TestTwo 20" should create a character by the name "TestTwo".
@@ -40,15 +49,10 @@
 - Input "b Test abc" should throw an exception.
 - Input "b Test 20" should create an enemy character.
 - Input "d Test" should remove the character by the name "Test".
-- Input "d Test" should do nothing if the character by the name "Test" doesn't exist.
+- Input "d Test" forward exception if the character by the name "Test" doesn't exist.
 - If there is no character in turn, input "r" should make it the first characters turn
 - If the first character is in turn, input "r" should change the turn to the next character
 - Invalid command word should cause an exception
 - Attempting to add a character who is already on the tracker does nothing (not added).
 - Missing command variables should cause an exception
-- Clearing the tracker should remove all characters
-- Input "clear" should clear the tracker
-- Should be able to set the dying condition of a character
-- Character dying condition should start at 0
 - Input "w Test 1" should set the dying condition of character "Test" to 1
-- Setting the condition of a non-existing character does nothing
